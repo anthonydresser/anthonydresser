@@ -9,6 +9,9 @@ var routes = require('./routes/index');
 var visualgas = require('./routes/visualgas');
 var mongoose = require('mongoose');
 var credentials = require('./config/credentials.js');
+var passport = require('passport');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 var app = express();
 
@@ -24,11 +27,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({ secret: 'anthonydressersecret' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash())
+
+require('./config/passport.js')(passport);
+
 app.use('/', routes);
 app.use('/visualgas', visualgas);
 
 var connect = function() {
-  mongoose.connect('mongodb://' + credentials.dbusername + ':' + credentials.dbpassword + '.mongolab.com:' + credentials.dbport + '/' + credentials.dbname);
+  mongoose.connect('mongodb://' + credentials.dbusername + ':' + credentials.dbpassword + '@ds047682.mongolab.com:' + credentials.dbport + '/' + credentials.dbname);
 };
 connect();
 
