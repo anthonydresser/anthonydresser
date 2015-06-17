@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var visualgas = require('./routes/visualgas');
+var mongoose = require('mongoose');
+var credentials = require('./config/credentials.js');
 
 var app = express();
 
@@ -24,6 +26,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/visualgas', visualgas);
+
+var connect = function() {
+  mongoose.connect('mongodb://' + credentials.dbusername + ':' + credentials.dbpassword + '.mongolab.com:' + credentials.dbport + '/' + credentials.dbname);
+};
+connect();
+
+//handle mongodb errors
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.on('disconnected', connect);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
