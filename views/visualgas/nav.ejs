@@ -1,28 +1,33 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav ng-controller="navCtrl" class="navbar navbar-default navbar-static-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span style="color: white;" class="icon-bar"></span>
+        <span style="color: white;" class="icon-bar"></span>
+        <span style="color: white;" class="icon-bar"></span>
       </button>
       <a class="navbar-brand" id="brand" href="/visualgas">Visual Gas</a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse">
+    <% if (user) { %>
       <ul class="nav navbar-nav">
         <li><a href="/visualgas/data">My Data</a></li>
       </ul>
-      <% if (user) { %>
         <div class="navbar-right">
           <ul class="nav navbar-nav">
             <li><a href="/visualgas/account">Account</a></li>
+            <li id="logout">
+              <form action="/visualgas/logout" method="post">
+                <input type="submit" value="Logout">
+              </form>
+            </li>
           </ul>
         </div>
       <% } else { %>
         <div class="navbar-right">
           <ul class="nav navbar-nav">
-            <li><a href="/visualgas/login">Login</a></li>
+            <li><a href="#/login">Login</a></li>
           </ul>
         </div>
       <% } %>

@@ -6,6 +6,25 @@
   padding-right: 10px;
 }
 
+#logout > form {
+  margin: 0;
+  border: none;
+}
+
+#logout > form > input {
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    height: 50px;
+    padding: 15px;
+    text-decoration: none;
+    border: none;
+}
+
+#logout > form > input:hover {
+    font-weight: bold;
+}
+
 #brand {
   color: white;
 }
