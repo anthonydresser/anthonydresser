@@ -38,7 +38,7 @@ app.use('/', routes);
 app.use('/visualgas', visualgas);
 
 var connect = function() {
-  mongoose.connect('mongodb://' + credentials.dbusername + ':' + credentials.dbpassword + '@ds047682.mongolab.com:' + credentials.dbport + '/' + credentials.dbname);
+  mongoose.connect(credentials.dburl);
 };
 connect();
 
