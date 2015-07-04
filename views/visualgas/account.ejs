@@ -1,35 +1,7 @@
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css">
-  <link rel="stylesheet" href="../stylesheets/visualgas.css">
-  <title><%=title%></title>
-</head>
+<% include header %>
 <body>
-  <nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" id="brand" href="/visualgas">Visual Gas</a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="/visualgas/data">My Data</a></li>
-        </ul>
-        <div class="navbar-right">
-          <ul class="nav navbar-nav">
-            <li><a href="/visualgas/account">Account</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <% include nav %>
   <div id="body" class="container-fluid">
     <div class="row">
       <div class="col-md-6">

@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'anthonydressersecret' }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash())
+app.use(flash());
 
 require('./config/passport.js')(passport);
 
