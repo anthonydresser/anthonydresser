@@ -41,7 +41,8 @@ router.get('/signup', function(req, res, next){
   res.render('visualgas/signup',
              {
                title:'Sign Up',
-               user: user
+               user: user,
+               message: req.flash('signupMessage')
              }
   );
 })
@@ -52,14 +53,17 @@ router.get('/login', function(req, res, next){
   res.render('visualgas/login',
              {
                title:'Login',
-               user: user
+               user: user,
+               message: req.flash('loginMessage')
              }
   );
 })
 
-router.post('/login', function(req, res, next){
-
-})
+router.post('/login', passport.authenticate('local-login', {
+  successRedirect : 'visualgas/',
+  failureRedirect : '/visualgas/login',
+  failureFlash : true
+}));
 
 router.post('/signup', passport.authenticate('local-signup', {
   successRedirect : '/visualgas/account',
