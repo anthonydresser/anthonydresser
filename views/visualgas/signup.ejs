@@ -1,37 +1,27 @@
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css">
-  <link rel="stylesheet" href="stylesheets/visualgas.css">
-  <title><%=title%></title>
-</head>
+<% include header %>
 <body>
-  <nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" id="brand" href="/visualgas">Visual Gas</a>
-      </div>
-      <div class="collapse navbar-collapse" id="navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="/visualgas/data">My Data</a></li>
-        </ul>
-        <div class="navbar-right">
-          <ul class="nav navbar-nav">
-            <li><a href="/visualgas/account">Account</a></li>
-          </ul>
+  <% include nav %>
+  <div id="body" class="container-fluid">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1 style="color: white">Sign Up</h1>
+      <form action"/visualgas/signup" method="post">
+        <div class="form-group">
+          <label style="color: white">Email</label>
+          <input type="test" class="form-control" name="email">
         </div>
-      </div>
+        <div class="form-group">
+          <label style="color: white">Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+      </form>
+
+      <hr>
+
+      <p style="color: white">Already have an account? <a href="/visualgas/login">Login</a></p>
     </div>
-  </nav>
-  <div class="container">
-    
   </div>
 </body>
 </html>

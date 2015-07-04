@@ -5,7 +5,7 @@ var User = require('../models/user');
 module.exports = function(passport){
 
   passport.serializeUser(function(user, done){
-    done(bull, user.id);
+    done(null, user.id);
   });
 
   passport.deserializeUser(function(id, done){
@@ -14,7 +14,7 @@ module.exports = function(passport){
     });
   });
 
-  passport.use('signup', new LocalStrategy({
+  passport.use('local-signup', new LocalStrategy({
       usernameField : 'email',
       passwordField : 'password',
       passReqToCallback : true
@@ -22,20 +22,16 @@ module.exports = function(passport){
     function(req, email, password, done) {
       process.nextTick(function(){
         User.findOne({ 'email' : email}, function(err, user){
-          if(err)
-            return done(err);
+          if(err) return done(err);
 
-          if(user){
-            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-          } else {
+          if(user)  return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+          else {
             var newUser = new User();
 
             newUser.email = email;
             newUser.password = newUser.generateHash(password);
-
             newUser.save(function(err) {
-              if(err)
-                throw err;
+              if(err) throw err;
               return done(null, newUser);
             });
           }
