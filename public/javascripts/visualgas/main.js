@@ -1,6 +1,6 @@
 var visualGas = angular.module('visualGas', ['ngRoute']);
 
-visualGas.config(['$routeProvider', function($routeProvider){
+visualGas.config(['$routeProvider', function($routeProvider, $locationProvider){
   $routeProvider
     .when('/', {
       templateUrl : 'visualgas/home',
@@ -19,4 +19,6 @@ visualGas.config(['$routeProvider', function($routeProvider){
       controller  : 'accountCtrl'
     })
     .otherwise({ redirectTo: '/visualgas'});
+
+    $locationProvider.html5Mode(true);
 }]);
