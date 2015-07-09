@@ -34,6 +34,27 @@ app.use(flash());
 
 require('./config/passport.js')(passport);
 
+
+app.post('/logintest',
+  function(req, res, next) {
+    console.log(req);
+    console.log('before authenticate');
+    passport.authenticate('local-login', function(err, user, info) {
+      console.log('authenticate callback');
+      if (err) { return res.send({'status':'err','message':err.message}); }
+      if (!user) { return res.send({'status':'fail','message':info.message}); }
+      console.log(user);
+      req.logIn(user, function(err) {
+        if (err) { return res.send({'status':'err','message':err.message}); }
+        return res.send({'status':'ok'});
+      });
+    })(req, res, next);
+  },
+  function(err, req, res, next) {
+    // failure in login test route
+    return res.send({'status':'err','message':err.message});
+  });
+
 app.use('/', routes);
 app.use('/visualgas', visualgas);
 
@@ -60,6 +81,8 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log('error: ' + err);
+    console.log('message: ' + err.message);
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -71,6 +94,8 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  console.log('error: ' + err);
+  console.log('message: ' + err.message);
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,

@@ -70,31 +70,53 @@ router.get('/login', function(req, res, next){
                }
     );
   } else res.redirect('/visualgas/home');
-})
+});
 
-router.post('/login', passport.authenticate('local-login', {
-  successRedirect : '/visualgas',
-  failureRedirect : '/visualgas/login',
-  failureFlash : true
-}));
+router.post('/login', function(req, res, next){
+  console.log(req);
+  passport.authenticate('local-login', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
 
-router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect : '/visualgas/account',
-  failureRedirect : '/visualgas/signup',
-  failureFlash : true
-}));
+    if (!user) {
+      return res.status(401).send("User not found");
+    }
+
+    res.status(200).end();
+  })(req, res, next);
+}, function(err, req, res, next){
+  res.status(500).end();
+  console.log('err : ' + err + ' : ' + err.message);
+});
+
+router.post('/signup', function(req, res, next){
+  passport.authenticate('local-signup', function(err, user, info){
+    if(err) {
+      return next(err);
+    }
+
+    if(!user) {
+      return res.status(401).send("Email already in use");
+    }
+
+    res.status(200);
+
+  })(req, res, next);
+}, function(err, req, res, next){
+  res.status(500).end();
+  console.log('err : ' + err + ' : ' + err.message);
+});
 
 router.post('/logout', function(req, res, next){
   req.logout();
   req.session.destroy();
-  res.redirect('/visualgas');
+  return res.status(200).end();
 });
 
 function isAuth(req, res, next) {
   if(req.isAuthenticated()) return next();
-
-  res.redirect('/login');
-
+  else return res.status(401).end();
 }
 
 module.exports = router;
