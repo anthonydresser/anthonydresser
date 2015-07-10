@@ -36,3 +36,28 @@ visualGas.controller('signupCtrl', function($scope){
 visualGas.controller('accountCtrl', function($scope){
 
 })
+
+visualGas.controller('dataCtrl', function($modal){
+
+  $scope.addEntry = function(){
+
+    var modalInstance = $modal.open({
+      animation: true,
+      templateUrl: '',
+      controller: 'addEntryModalCtrl'
+    })
+  }
+
+})
+
+visualGas.controller('addEntryModalCtrl', function($modalInstance){
+
+  $scope.ok = function(){
+
+  }
+
+  $scope.cancel = function() {
+
+  }
+
+})
