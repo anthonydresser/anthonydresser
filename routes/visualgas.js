@@ -73,7 +73,6 @@ router.get('/login', function(req, res, next){
 });
 
 router.post('/login', function(req, res, next){
-  console.log(req);
   passport.authenticate('local-login', function(err, user, info) {
     if (err) {
       return next(err);
@@ -83,7 +82,7 @@ router.post('/login', function(req, res, next){
       return res.status(401).send("User not found");
     }
 
-    res.status(200).end();
+    res.status(200).send({ id:user['_id'], email: user.email });
   })(req, res, next);
 }, function(err, req, res, next){
   res.status(500).end();
@@ -100,7 +99,7 @@ router.post('/signup', function(req, res, next){
       return res.status(401).send("Email already in use");
     }
 
-    res.status(200);
+    res.status(200).send({ id:user['_id'], email: user.email });
 
   })(req, res, next);
 }, function(err, req, res, next){
