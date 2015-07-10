@@ -1,4 +1,4 @@
-var visualGas = angular.module('visualGas', ['ui.router']);
+var visualGas = angular.module('visualGas', ['ui.router', 'ui.bootstrap']);
 
 visualGas.config(function($stateProvider, $urlRouterProvider){
 
@@ -20,5 +20,9 @@ visualGas.config(function($stateProvider, $urlRouterProvider){
     .state('account', {
       url: '/account',
       templateUrl : 'account'
+    })
+    .state('data', {
+      url: '/data',
+      templateUrl : 'data'
     })
 });
