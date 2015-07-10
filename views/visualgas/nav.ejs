@@ -7,30 +7,27 @@
         <span style="color: white;" class="icon-bar"></span>
         <span style="color: white;" class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" id="brand" href="/visualgas">Visual Gas</a>
+      <a class="navbar-brand" id="brand" ui-sref="home">Visual Gas</a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse">
-    <% if (user) { %>
       <ul class="nav navbar-nav">
-        <li><a href="/visualgas/data">My Data</a></li>
+        <li ng-show="$root.user"><a ui-sref="data">My Data</a></li>
       </ul>
-        <div class="navbar-right">
-          <ul class="nav navbar-nav">
-            <li><a href="/visualgas/account">Account</a></li>
-            <li id="logout">
-              <form action="/visualgas/logout" method="post">
-                <input type="submit" value="Logout">
-              </form>
-            </li>
-          </ul>
-        </div>
-      <% } else { %>
-        <div class="navbar-right">
-          <ul class="nav navbar-nav">
-            <li><a href="#/login">Login</a></li>
-          </ul>
-        </div>
-      <% } %>
+      <div class="navbar-right">
+        <ul class="nav navbar-nav">
+          <li ng-show="$root.user"><a ui-sref="account">Account</a></li>
+          <li ng-show="$root.user" id="logout">
+            <form action="/visualgas/logout" method="post">
+              <input type="submit" value="Logout">
+            </form>
+          </li>
+        </ul>
+      </div>
+      <div class="navbar-right">
+        <ul class="nav navbar-nav">
+          <li ng-hide="$root.user"><a ui-sref="login">Login</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

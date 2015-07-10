@@ -1,4 +1,4 @@
-<div id="body" class="container-fluid">
+<div ng-controller="loginCtrl" id="body" class="container-fluid">
   <div class="col-sm-6 col-sm-offset-3">
     <h1 style="color: white">Login</h1>
     <div ng-show="message.length > 0" class="alert alert-danger">{{message}}</div>
@@ -14,6 +14,6 @@
       <button ng-click="login()" type="submit" class="btn btn-warning btn-lg">Login</button>
     </form>
     <hr>
-    <p style="color: white">Need an account? <a href="#/signup">Signup</a></p>
+    <p style="color: white">Need an account? <a ui-sref="signup">Signup</a></p>
   </div>
 </div>

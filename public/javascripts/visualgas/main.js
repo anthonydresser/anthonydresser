@@ -1,24 +1,24 @@
-var visualGas = angular.module('visualGas', ['ngRoute']);
+var visualGas = angular.module('visualGas', ['ui.router']);
 
-visualGas.config(['$routeProvider', function($routeProvider, $locationProvider){
-  $routeProvider
-    .when('/', {
-      templateUrl : 'visualgas/home',
-      controller  : 'homeCtrl'
-    })
-    .when('/login', {
-      templateUrl : 'visualgas/login',
-      controller  : 'loginCtrl'
-    })
-    .when('/signup', {
-      templateUrl : 'visualgas/signup',
-      controller  : 'signupCtrl'
-    })
-    .when('/account', {
-      templateUrl : 'visualgas/account',
-      controller  : 'accountCtrl'
-    })
-    .otherwise({ redirectTo: '/visualgas'});
+visualGas.config(function($stateProvider, $urlRouterProvider){
 
-    $locationProvider.html5Mode(true);
-}]);
+  $urlRouterProvider.otherwise('/home')
+
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl : 'home'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl : 'login'
+    })
+    .state('signup', {
+      url: '/signup',
+      templateUrl : 'signup'
+    })
+    .state('account', {
+      url: '/account',
+      templateUrl : 'account'
+    })
+});
