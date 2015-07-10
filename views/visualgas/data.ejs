@@ -1,8 +1,16 @@
-<div id="body" class="container-fluid">
+<div ng-controller="dataCtrl" id="body" class="container-fluid">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
+      <button ng-click="addEntry()" style="background: black; border: 0; margin-top: 10px; width: 100%" class="media">
+        <span class="media-center" style="width: 20px; display: block; margin-right: auto; margin-left: auto; background-color: grey; border-radius: 2px; padding: 5px;"><i class="fa fa-plus"></i></span>
+      </button>
+      <div ng-if="entries.length == 0 || !entries">
+        <h2 class="text-center" style="color: white">You don't have any entries. Start by selecting the Add Entry button at the top</h2>
+      </div>
+      <div ng-if="entries.length > 0" ng-repeat="entry in entries">
+      </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-9">
     </div>
   </div>
 </div>
