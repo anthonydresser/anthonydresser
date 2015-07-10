@@ -1,45 +1,39 @@
-<html>
-<% include header %>
-<body>
-  <% include nav %>
-  <div class="container-fluid">
-    <div class="jumbotron">
-      <div class="row">
-        <div class="col-md-6">
-          <h1>Visual Gas</h1>
-          <p>Track your usage; Track your car</p>
-          <p><a class="btn btn-primary btn-md" href="/visualgas/" role="button">Learn More</a></p>
-        </div>
-        <div class="col-md-6">
-          <img src="images/gas.png">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
+<div ng-controller="projectsCtrl" class="container-fluid">
+  <div class="jumbotron">
     <div class="row">
-      <div class="col-md-9">
-        <article id="visualgas">'
-          <div class="row">
-            <div class="col-md-9">
-              <h2>Visual Gas</h4>
-              <p>Ever wonder why sometimes you are filling up once a week and sometimes once a day? Well track your usage and visual see where your money is going.</p>
-              <p>By entering your usage data, you can easily see where your gas is going and start to see the trends in your usage. Using this information is up to you, but finding the trends is the first step.</p>
-              <p><a class="btn btn-primary btn-md" href="/visualgas" role="button">Use it here</a></p>
-            </div>
-            <div class="col-md-3">
-              <img src="images/gas.png">
-            </div>
-          </div>
-        </article>
+      <div class="col-md-6">
+        <h1>Visual Gas</h1>
+        <p>Track your usage; Track your car</p>
+        <p><a class="btn btn-primary btn-md" href="/visualgas/" role="button">Learn More</a></p>
       </div>
-      <div class="col-md-3" id="rightCol">
-        <h4>Quick Links</h4>
-        <ul class="nav nav-stacked" id="sidebar">
-          <li><a href="#visualgas">Visual Gas</a></li>
-        </ul>
+      <div class="col-md-6">
+        <img src="images/gas.png">
       </div>
     </div>
   </div>
-</body>
-</html>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <article id="visualgas">'
+        <div class="row">
+          <div class="col-md-9">
+            <h2>Visual Gas</h4>
+            <p>Ever wonder why sometimes you are filling up once a week and sometimes once a day? Well track your usage and visual see where your money is going.</p>
+            <p>By entering your usage data, you can easily see where your gas is going and start to see the trends in your usage. Using this information is up to you, but finding the trends is the first step.</p>
+            <p><a class="btn btn-primary btn-md" href="/visualgas" role="button">Use it here</a></p>
+          </div>
+          <div class="col-md-3">
+            <img src="images/gas.png">
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="col-md-3" id="rightCol">
+      <h4>Quick Links</h4>
+      <ul class="nav nav-stacked" id="sidebar">
+        <li><a href="#visualgas">Visual Gas</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

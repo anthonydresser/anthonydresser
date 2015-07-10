@@ -1,4 +1,4 @@
-<div id="body" class="container-fluid">
+<div ng-controller="signupCtrl" id="body" class="container-fluid">
   <div class="col-sm-6 col-sm-offset-3">
     <h1 style="color: white">Sign Up</h1>
     <% if (message.length > 0) { %>
@@ -19,6 +19,6 @@
 
     <hr>
 
-    <p style="color: white">Already have an account? <a href="#/login">Login</a></p>
+    <p style="color: white">Already have an account? <a ui-sref="login">Login</a></p>
   </div>
 </div>
