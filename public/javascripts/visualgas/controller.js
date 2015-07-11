@@ -37,27 +37,76 @@ visualGas.controller('accountCtrl', function($scope){
 
 })
 
-visualGas.controller('dataCtrl', function($modal){
+visualGas.controller('dataCtrl', function($http, $scope, $modal){
+
+  $scope.getEntries = function(){
+    $http.get('/visualgas/myentries')
+         .success(function(data, status){
+           $scope.entries = data;
+           angular.forEach($scope.entries, function(entry){
+             entry.dateString = new Date(entry.date).toLocaleString();
+           })
+         })
+  }
 
   $scope.addEntry = function(){
-
     var modalInstance = $modal.open({
       animation: true,
-      templateUrl: '',
+      templateUrl: '/visualgas/templates/addentrymodal',
       controller: 'addEntryModalCtrl'
+    })
+
+    modalInstance.result.then(function(){
+      $scope.getEntries();
     })
   }
 
+  $scope.getEntries();
 })
 
-visualGas.controller('addEntryModalCtrl', function($modalInstance){
+visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance){
+  Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+  });
+
+  angular.element(document).ready(function () {
+        setDate(new Date());
+    });
+
+  function setDate(date){
+    z=$(date).attr('value');
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+
+    var yyyy = today.getFullYear();
+    if(dd<10){dd='0'+dd}
+    if(mm<10){mm='0'+mm}
+    today = yyyy+'-'+mm+'-'+dd;
+
+    $('#date').val(today);
+  }
 
   $scope.ok = function(){
+    //add Entry here
+    var date = new Date($scope.date);
+    date = date.toJSON();
+    $http.post('/visualgas/addEntry', {
+                                        mileage: $scope.mileage,
+                                        gallons: $scope.gallons,
+                                        date: date
+                                      })
+         .success(function(data, status){
+           console.log(data);
+         });
 
+    $modalInstance.close();
   }
 
   $scope.cancel = function() {
-
+      $modalInstance.dismiss('cancel');
   }
-
 })
