@@ -37,7 +37,17 @@ visualGas.controller('accountCtrl', function($scope){
 
 })
 
-visualGas.controller('dataCtrl', function($scope, $modal){
+visualGas.controller('dataCtrl', function($http, $scope, $modal){
+
+  $scope.getEntries = function(){
+    $http.get('/visualgas/myentries')
+         .success(function(data, status){
+           $scope.entries = data;
+           angular.forEach($scope.entries, function(entry){
+             entry.dateString = new Date(entry.date).toLocaleString();
+           })
+         })
+  }
 
   $scope.addEntry = function(){
     var modalInstance = $modal.open({
@@ -45,8 +55,13 @@ visualGas.controller('dataCtrl', function($scope, $modal){
       templateUrl: '/visualgas/templates/addentrymodal',
       controller: 'addEntryModalCtrl'
     })
+
+    modalInstance.result.then(function(){
+      $scope.getEntries();
+    })
   }
 
+  $scope.getEntries();
 })
 
 visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance){

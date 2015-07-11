@@ -126,7 +126,6 @@ router.get('/templates/addentrymodal', function(req, res, next){
 })
 
 router.post('/addEntry', isAuth, function(req, res, next) {
-  console.log(req.body)
   if(isEmpty(req.body.mileage) || isEmpty(req.body.gallons) || isEmpty(req.body.date)) return res.status(400).end();
 
   var entry = new Entry();
@@ -141,6 +140,12 @@ router.post('/addEntry', isAuth, function(req, res, next) {
   entry.save(function(err){
     if(err) res.status(500).end()
     res.status(200).send(entry);
+  });
+})
+
+router.get('/myentries', isAuth, function(req, res, next) {
+  Entry.find({user: req.user['_id']}).lean().exec(function (err, docs){
+    res.status(200).send(docs);
   });
 })
 
