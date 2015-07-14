@@ -1,3 +1,18 @@
+.container-fluid {
+  padding: 0;
+}
+
+#body {
+  background-color: white;
+  min-height: 100%;
+}
+
+.entry {
+  color: black;
+}
+
+/* nav-bar styling */
+
 .navbar {
   margin: 0;
   background-color: white;
@@ -34,15 +49,6 @@
   font-weight: bold;
 }
 
-.container-fluid {
-  padding: 0;
-}
-
-#body {
-  background-color: white;
-  min-height: 100%;
-}
-
 .navbar-default .navbar-nav>li>a {
   color: black;
 }
@@ -52,6 +58,21 @@
   font-weight: bold;
 }
 
-.entry {
-  color: black;
+/* Graph styling */
+
+.axis path, .axis line {
+    fill: none;
+    stroke: #777;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: 'Arial';
+    font-size: 13px;
+}
+.tick {
+    stroke-dasharray: 1, 2;
+}
+.bar {
+    fill: FireBrick;
 }
