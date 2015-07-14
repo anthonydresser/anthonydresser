@@ -1,7 +1,7 @@
 .navbar {
   margin: 0;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -12,8 +12,8 @@
 }
 
 #logout > form > input {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     font-size: 14px;
     height: 50px;
     padding: 15px;
@@ -26,11 +26,11 @@
 }
 
 #brand {
-  color: white;
+  color: black;
 }
 
 #brand:hover {
-  color: white;
+  color: black;
   font-weight: bold;
 }
 
@@ -39,15 +39,19 @@
 }
 
 #body {
-  background-color: black;
+  background-color: white;
   min-height: 100%;
 }
 
 .navbar-default .navbar-nav>li>a {
-  color: white;
+  color: black;
 }
 
 .navbar-default .navbar-nav>li>a:hover{
-  color: white;
+  color: black;
   font-weight: bold;
+}
+
+.entry {
+  color: black;
 }

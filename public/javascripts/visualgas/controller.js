@@ -39,12 +39,32 @@ visualGas.controller('accountCtrl', function($scope){
 
 visualGas.controller('dataCtrl', function($http, $scope, $modal){
 
+  $scope.fakedata = [{
+  x: 1,
+  y: 5
+}, {
+  x: 20,
+  y: 20
+}, {
+  x: 40,
+  y: 10
+}, {
+  x: 60,
+  y: 40
+}, {
+  x: 80,
+  y: 5
+}, {
+  x: 100,
+  y: 60
+}];
+
   $scope.getEntries = function(){
     $http.get('/visualgas/myentries')
          .success(function(data, status){
            $scope.entries = data;
            angular.forEach($scope.entries, function(entry){
-             entry.dateString = new Date(entry.date).toLocaleString();
+             entry.dateString = new Date(entry.date).toLocaleDateString();
            })
          })
   }
@@ -97,6 +117,7 @@ visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance
     $http.post('/visualgas/addEntry', {
                                         mileage: $scope.mileage,
                                         gallons: $scope.gallons,
+                                        ppg: $scope.ppg,
                                         date: date
                                       })
          .success(function(data, status){
