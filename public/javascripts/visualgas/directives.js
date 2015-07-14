@@ -38,32 +38,56 @@ visualgas.directive('d3Graph', ['d3Service', '$window', function(d3Service, $win
 
 
           var width = d3.select(element[0])[0][0].offsetWidth - margin,
+
           height = graphHeight + graphPadding,
-          xRange = d3.scale.linear().range([10, width]).domain([0, data.length]),
-          yRange = d3.scale.linear().range([0, height - 10]).domain([d3.min(data, function(d){
-            return d.y;
+
+          xRange = d3.time.scale().range([40, width]).domain([d3.min(data, function(d){
+            return new Date(d.dateString);
           }), d3.max(data, function(d){
-            return d.y;
+            return new Date(d.dateString);
+          })]),
+
+          yRange = d3.scale.linear().range([0, height]).domain([d3.max(data, function(d){
+            return d.ppg;
+          }), d3.min(data, function(d){
+            return d.ppg;
           })]);
+
           xAxis = d3.svg.axis()
-            .scale(xRange)
-            .tickSize(5)
-            .tickSubdivide(true),
+          .scale(xRange)
+          .tickSize(5)
+          .tickSubdivide(true),
+
           yAxis = d3.svg.axis()
-            .scale(yRange)
-            .tickSize(5)
-            .orient('left')
-            .tickSubdivide(true);
+          .scale(yRange)
+          .tickSize(5)
+          .orient('left')
+          .tickSubdivide(true);
 
           svg.append('svg:g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(0,' + height + ')')
-            .call(xAxis);
+          .attr('class', 'x axis')
+          .attr('transform', 'translate(0,' + (height + 30) + ')')
+          .call(xAxis);
 
           svg.append('svg:g')
-            .attr('class', 'y axis')
-            .attr('transform', 'translate(50,0)')
-            .call(yAxis);
+          .attr('class', 'y axis')
+          .attr('transform', 'translate(40,30)')
+          .call(yAxis);
+
+          var lineFunc = d3.svg.line()
+          .x(function(d){
+            return xRange(new Date(d.dateString));
+          })
+          .y(function(d){
+            return yRange(d.ppg);
+          })
+          .interpolate('basic');
+
+          svg.append('svg:path')
+          .attr('d', lineFunc(data))
+          .attr('stroke', 'blue')
+          .attr('stroke-width', 2)
+          .attr('fill', 'none');
           // color = d3.scale.category20(),
           // xScale = d3.scale.linear()
           // .domain([0, d3.max(data, function(d){
@@ -71,23 +95,23 @@ visualgas.directive('d3Graph', ['d3Service', '$window', function(d3Service, $win
           // })])
           // .range([0, width]);
 
-            // svg.attr('height', height);
-            //
-            // svg.selectAll('rect')
-            // .data(data).enter()
-            // .append('rect')
-            // .attr('height', barHeight)
-            // .attr('width', 140)
-            // .attr('x', Math.round(margin/2))
-            // .attr('y', function(d, i){
-            //   return i * (barHeight + barPadding);
-            // })
-            // .attr('fill', function(d) { return color(d.score); })
-            // .transition()
-            // .duration(1000)
-            // .attr('width', function(d) {
-            //   return xScale(d.score);
-            // })
+          // svg.attr('height', height);
+          //
+          // svg.selectAll('rect')
+          // .data(data).enter()
+          // .append('rect')
+          // .attr('height', barHeight)
+          // .attr('width', 140)
+          // .attr('x', Math.round(margin/2))
+          // .attr('y', function(d, i){
+          //   return i * (barHeight + barPadding);
+          // })
+          // .attr('fill', function(d) { return color(d.score); })
+          // .transition()
+          // .duration(1000)
+          // .attr('width', function(d) {
+          //   return xScale(d.score);
+          // })
         }
 
       });
