@@ -8,8 +8,7 @@ router.get('/', function(req, res, next){
   if(req.user)  {user = req.user}
   res.render('visualgas/templates/main',
              {
-               title:'Visual Gas',
-               user: user
+               title:'Visual Gas'
              }
   );
 });
@@ -17,59 +16,32 @@ router.get('/', function(req, res, next){
 router.get('/home', function(req, res, next){
   var user;
   if(req.user)  {user = req.user}
-  res.render('visualgas/home',
-             {
-               title:'Visual Gas',
-               user: user
-             }
-  );
+  res.render('visualgas/home');
 })
 
 router.get('/data', function(req, res, next){
   var user;
   if(req.user)  {user = req.user}
-  res.render('visualgas/data',
-             {
-               title:'My Data',
-               user: user
-             }
-  );
+  res.render('visualgas/data');
 });
 
 router.get('/account', function(req, res, next){
   var user;
   if(req.user)  {user = req.user}
-  res.render('visualgas/account',
-             {
-               title:'My Account',
-               user: user
-             }
-  );
+  res.render('visualgas/account');
 });
 
 router.get('/signup', function(req, res, next){
   var user;
   if(!req.user) {
-    res.render('visualgas/signup',
-               {
-                 title:'Sign Up',
-                 user: user,
-                 message: req.flash('signupMessage')
-               }
-    );
+    res.render('visualgas/signup');
   } else res.redirect('/visualgas');
 })
 
 router.get('/login', function(req, res, next){
   var user;
   if(!req.user){
-    res.render('visualgas/login',
-               {
-                 title:'Login',
-                 user: user,
-                 message: req.flash('loginMessage')
-               }
-    );
+    res.render('visualgas/login');
   } else res.redirect('/visualgas/home');
 });
 
@@ -126,7 +98,7 @@ router.get('/templates/addentrymodal', function(req, res, next){
 })
 
 router.post('/addEntry', isAuth, function(req, res, next) {
-  if(isEmpty(req.body.mileage) || isEmpty(req.body.gallons) || isEmpty(req.body.date)) return res.status(400).end();
+  if(isEmpty(req.body.mileage) || isEmpty(req.body.gallons) || isEmpty(req.body.date) || isEmpty(req.body.ppg)) return res.status(400).end();
 
   var entry = new Entry();
 
@@ -134,6 +106,7 @@ router.post('/addEntry', isAuth, function(req, res, next) {
 
   entry.mileage = req.body.mileage;
   entry.gallons = req.body.gallons;
+  entry.ppg = req.body.ppg;
   entry.user = req.user['_id'];
   entry.date = date;
 
