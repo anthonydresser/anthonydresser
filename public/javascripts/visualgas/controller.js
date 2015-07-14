@@ -14,18 +14,18 @@ visualGas.controller('homeCtrl', function($scope){
 visualGas.controller('loginCtrl', function($http, $scope, $state, $rootScope){
   $scope.login = function(){
     $http.post('/visualgas/login', {
-                                      username: $scope.email,
-                                      password: $scope.password
-                                   })
-         .success(function(data, status){
-           if(status === 200) {
-             $rootScope.user = data;
-             $state.transitionTo('account');
-           }
-         })
-         .error(function(data, status){
-           if(status === 401) $scope.message = data;
-         });
+      username: $scope.email,
+      password: $scope.password
+    })
+    .success(function(data, status){
+      if(status === 200) {
+        $rootScope.user = data;
+        $state.transitionTo('account');
+      }
+    })
+    .error(function(data, status){
+      if(status === 401) $scope.message = data;
+    });
   }
 })
 
@@ -40,33 +40,45 @@ visualGas.controller('accountCtrl', function($scope){
 visualGas.controller('dataCtrl', function($http, $scope, $modal){
 
   $scope.fakedata = [{
-  x: 1,
-  y: 5
-}, {
-  x: 20,
-  y: 20
-}, {
-  x: 40,
-  y: 10
-}, {
-  x: 60,
-  y: 40
-}, {
-  x: 80,
-  y: 5
-}, {
-  x: 100,
-  y: 60
-}];
+    x: 1,
+    y: 5
+  }, {
+    x: 2,
+    y: 20
+  }, {
+    x: 3,
+    y: 10
+  }, {
+    x: 4,
+    y: 40
+  }, {
+    x: 5,
+    y: 5
+  }, {
+    x: 6,
+    y: 60
+  }];
 
   $scope.getEntries = function(){
     $http.get('/visualgas/myentries')
-         .success(function(data, status){
-           $scope.entries = data;
-           angular.forEach($scope.entries, function(entry){
-             entry.dateString = new Date(entry.date).toLocaleDateString();
-           })
-         })
+    .success(function(data, status){
+      $scope.entries = data;
+      angular.forEach($scope.entries, function(entry){
+        entry.dateString = new Date(entry.date).toLocaleDateString();
+      })
+      $scope.entries.sort(function(a, b){
+        var datea = new Date(a.date),
+            dateb = new Date(b.date);
+
+        if(datea > dateb){
+          return 1
+        } else if(datea < dateb){
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    })
   }
 
   $scope.addEntry = function(){
@@ -92,8 +104,8 @@ visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance
   });
 
   angular.element(document).ready(function () {
-        setDate(new Date());
-    });
+    setDate(new Date());
+  });
 
   function setDate(date){
     z=$(date).attr('value');
@@ -115,19 +127,19 @@ visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance
     var date = new Date($scope.date);
     date = date.toJSON();
     $http.post('/visualgas/addEntry', {
-                                        mileage: $scope.mileage,
-                                        gallons: $scope.gallons,
-                                        ppg: $scope.ppg,
-                                        date: date
-                                      })
-         .success(function(data, status){
-           console.log(data);
-         });
+      mileage: $scope.mileage,
+      gallons: $scope.gallons,
+      ppg: $scope.ppg,
+      date: date
+    })
+    .success(function(data, status){
+      console.log(data);
+    });
 
     $modalInstance.close();
   }
 
   $scope.cancel = function() {
-      $modalInstance.dismiss('cancel');
+    $modalInstance.dismiss('cancel');
   }
 })
