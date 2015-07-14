@@ -1,4 +1,4 @@
-var visualGas = angular.module('visualGas', ['ui.router', 'ui.bootstrap']);
+var visualGas = angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3']);
 
 visualGas.config(function($stateProvider, $urlRouterProvider){
 
