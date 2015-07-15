@@ -27,12 +27,8 @@ module.exports = function(passport){
     });
   }));
 
-  passport.use('local-signup', new LocalStrategy({
-      usernameField : 'email',
-      passwordField : 'password',
-      passReqToCallback : true
-    },
-    function(req, email, password, done) {
+  passport.use('local-signup', new LocalStrategy(
+    function(email, password, done) {
       process.nextTick(function(){
         User.findOne({ 'email' : email}, function(err, user){
           if(err) return done(err);
