@@ -30,7 +30,21 @@ visualGas.controller('loginCtrl', function($http, $scope, $state, $rootScope){
 })
 
 visualGas.controller('signupCtrl', function($scope){
-
+  $scope.signUp = function(){
+    $http.post('/visualgas/signup', {
+      username: $scope.email,
+      password: $scope.password
+    })
+    .success(function(data, status){
+      if(status === 200) {
+        $rootScope.user = data;
+        $state.transitionTo('account');
+      }
+    })
+    .error(function(data, status){
+      if(status === 401) $scope.message = data;
+    })
+  }
 })
 
 visualGas.controller('accountCtrl', function($scope){
@@ -43,6 +57,7 @@ visualGas.controller('dataCtrl', function($http, $scope, $modal){
     $http.delete('/visualgas/entry?id=' + entry['_id'])
     .success(function(data, status){
       $scope.getEntries();
+      //TODO speed up this process
       // $scope.entries.splice($scope.entries.indexOf(entry), 1);
     }).error(function(data, status){
       console.log(data);
@@ -80,6 +95,7 @@ visualGas.controller('dataCtrl', function($http, $scope, $modal){
     })
 
     modalInstance.result.then(function(){
+      //TODO speed up this process
       $scope.getEntries();
     })
   }
@@ -88,30 +104,6 @@ visualGas.controller('dataCtrl', function($http, $scope, $modal){
 })
 
 visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance){
-  Date.prototype.toDateInputValue = (function() {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,10);
-  });
-
-  angular.element(document).ready(function () {
-    setDate(new Date());
-  });
-
-  function setDate(date){
-    z=$(date).attr('value');
-
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-
-    var yyyy = today.getFullYear();
-    if(dd<10){dd='0'+dd}
-    if(mm<10){mm='0'+mm}
-    today = yyyy+'-'+mm+'-'+dd;
-
-    $('#date').val(today);
-  }
 
   $scope.ok = function(){
     //add Entry here
