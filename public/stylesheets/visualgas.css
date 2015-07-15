@@ -1,3 +1,47 @@
+/* testing */
+/*
+
+* { outline: 2px dotted red }
+* * { outline: 2px dotted green }
+* * * { outline: 2px dotted orange }
+* * * * { outline: 2px dotted blue }
+* * * * * { outline: 1px solid red }
+* * * * * * { outline: 1px solid green }
+* * * * * * * { outline: 1px solid orange }
+* * * * * * * * { outline: 1px solid blue }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.col-sm-4 {
+  padding-right: 15px;
+  padding-left: 15px;
+  float: left;
+  width: 33.33%;
+}
+
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.clearfix::before, .clearfix::after, .row::before, .row::after {
+  display: table;
+  content: " ";
+}
+
+.clearfix::after, .row::after {
+  clear: both;
+}
+
+*/
+
+/* Testing done */
+
+
 .container-fluid {
   padding: 0;
 }
