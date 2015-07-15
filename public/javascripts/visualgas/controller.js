@@ -29,7 +29,7 @@ visualGas.controller('loginCtrl', function($http, $scope, $state, $rootScope){
   }
 })
 
-visualGas.controller('signupCtrl', function($scope){
+visualGas.controller('signupCtrl', function($http, $rootScope, $scope){
   $scope.signUp = function(){
     $http.post('/visualgas/signup', {
       username: $scope.email,
