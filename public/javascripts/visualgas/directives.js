@@ -47,7 +47,7 @@ visualgas.directive('d3Graph', ['d3Service', '$window', function(d3Service, $win
             return new Date(d.dateString);
           })]),
 
-          yRange = d3.scale.linear().range([0, height]).domain([d3.max(data, function(d){
+          yRange = d3.scale.linear().range([20, height + 20]).domain([d3.max(data, function(d){
             return d.ppg;
           }), d3.min(data, function(d){
             return d.ppg;
@@ -66,12 +66,12 @@ visualgas.directive('d3Graph', ['d3Service', '$window', function(d3Service, $win
 
           svg.append('svg:g')
           .attr('class', 'x axis')
-          .attr('transform', 'translate(0,' + (height + 30) + ')')
+          .attr('transform', 'translate(0,' + (height + 20) + ')')
           .call(xAxis);
 
           svg.append('svg:g')
           .attr('class', 'y axis')
-          .attr('transform', 'translate(40,30)')
+          .attr('transform', 'translate(40,0)')
           .call(yAxis);
 
           var lineFunc = d3.svg.line()
