@@ -22,7 +22,30 @@
       </div>
     </div>
     <div class="col-md-9">
-      <d3-graph data="entries" bar-height="200" bar-padding="50"></d3-graph>
-    </div>
+      <div class="row">
+        <div class="form-inline">
+          <div class="col-md-2 col-md-offset-3">
+            <select class="form-control center block">
+              <option value="ppg">Price Pre Gallon</option>
+              <option value="mileage">Mileage</option>
+              <option value="gallons">Gallons</option>
+            </select>
+          </div>
+          <div class="col-md-2 text-center">
+            <h4>VS</h4>
+          </div>
+          <div class="col-md-2">
+            <select class="form-control">
+              <option value="time">Time</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <d3-graph data="entries" bar-height="200" bar-padding="50"></d3-graph>
+        </div>
+      </div>
   </div>
+</div>
 </div>
