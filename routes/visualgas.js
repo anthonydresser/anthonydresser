@@ -114,6 +114,20 @@ router.post('/addEntry', isAuth, function(req, res, next) {
     if(err) res.status(500).end()
     res.status(200).send(entry);
   });
+});
+
+router.delete('/entry', isAuth, function(req, res, next){
+  if(isEmpty(req.query.id)) return res.status(400).end();
+
+  Entry.findOne({'_id' : req.query.id}).select('user').exec(function(err, entry){
+    if(err) return next(err);
+    if(JSON.stringify(entry.user) == JSON.stringify(req.user['_id'])){
+      entry.remove();
+      res.status(200).end();
+    } else {
+      res.status(403).end();
+    }
+  });
 })
 
 router.get('/myentries', isAuth, function(req, res, next) {

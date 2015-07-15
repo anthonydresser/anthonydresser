@@ -39,30 +39,21 @@ visualGas.controller('accountCtrl', function($scope){
 
 visualGas.controller('dataCtrl', function($http, $scope, $modal){
 
-  $scope.fakedata = [{
-    x: 1,
-    y: 5
-  }, {
-    x: 2,
-    y: 20
-  }, {
-    x: 3,
-    y: 10
-  }, {
-    x: 4,
-    y: 40
-  }, {
-    x: 5,
-    y: 5
-  }, {
-    x: 6,
-    y: 60
-  }];
+  $scope.deleteEntry = function(entry){
+    $http.delete('/visualgas/entry?id=' + entry['_id'])
+    .success(function(data, status){
+      $scope.getEntries();
+      // $scope.entries.splice($scope.entries.indexOf(entry), 1);
+    }).error(function(data, status){
+      console.log(data);
+    })
+  }
 
   $scope.getEntries = function(){
     $http.get('/visualgas/myentries')
     .success(function(data, status){
       $scope.entries = data;
+      console.log(data);
       angular.forEach($scope.entries, function(entry){
         entry.dateString = new Date(entry.date).toLocaleDateString();
       })
