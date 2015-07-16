@@ -1,8 +1,8 @@
-<div ng-controller="dataCtrl" id="body" class="container-fluid">
+<div id="body" class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <button ng-click="addEntry()" style="background: white; border: 0; margin-top: 10px; width: 100%" class="media">
-        <span class="media-center" style="width: 20px; display: block; margin-right: auto; margin-left: auto; background-color: grey; border-radius: 2px; padding: 5px;"><i class="fa fa-plus"></i></span>
+      <button ng-click="addEntry()" style="margin-top: 10px; width: 100%" class="media btn btn-default">
+        <span class="media-center" style="width: 20px; display: block; margin-right: auto; margin-left: auto; border-radius: 2px; padding: 5px;"><i class="fa fa-plus"></i></span>
       </button>
       <div ng-if="entries.length == 0 || !entries">
         <h2 class="text-center" style="color: black">You don't have any entries. Start by selecting the Add Entry button at the top</h2>
@@ -25,25 +25,21 @@
       <div class="row">
         <div class="form-inline">
           <div class="col-md-2 col-md-offset-3">
-            <select class="form-control center block">
-              <option value="ppg">Price Pre Gallon</option>
-              <option value="mileage">Mileage</option>
-              <option value="gallons">Gallons</option>
+            <select ng-init="graphDataY = yOptions[0].val" ng-model="graphDataY" ng-change="changeGraphData()" ng-options="option.val as option.name for option in yOptions" class="form-control center block">
             </select>
           </div>
           <div class="col-md-2 text-center">
             <h4>VS</h4>
           </div>
           <div class="col-md-2">
-            <select class="form-control">
-              <option value="time">Time</option>
+            <select ng-init="graphDataX = xOptions[0].val" ng-model="graphDataX" ng-change="changeGraphData()" ng-options="option.val as option.name for option in xOptions" class="form-control">
             </select>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <d3-graph data="entries" bar-height="200" bar-padding="50"></d3-graph>
+          <d3-graph data="graphData" bar-height="200" bar-padding="50"></d3-graph>
         </div>
       </div>
   </div>
