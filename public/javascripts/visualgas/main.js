@@ -7,22 +7,27 @@ visualGas.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl : 'home'
+      templateUrl : 'home',
+      controller : 'homeCtrl'
     })
     .state('login', {
       url: '/login',
-      templateUrl : 'login'
+      templateUrl : 'login',
+      controller : 'loginCtrl'
     })
     .state('signup', {
       url: '/signup',
-      templateUrl : 'signup'
+      templateUrl : 'signup',
+      controller : 'signupCtrl'
     })
     .state('account', {
       url: '/account',
-      templateUrl : 'account'
+      templateUrl : 'account',
+      controller : 'accountCtrl'
     })
     .state('data', {
       url: '/data',
-      templateUrl : 'data'
+      templateUrl : 'data',
+      controller : 'dataCtrl'
     })
 });

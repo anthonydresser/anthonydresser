@@ -1,9 +1,14 @@
 var visualGas = angular.module('visualGas');
 
-visualGas.controller('navCtrl', function($http, $scope){
+visualGas.controller('navCtrl', function($http, $state, $scope){
   $scope.logout = function(){
     $rootScope.user = null;
-    $http.post('/visualgas/logout');
+    $http.post('/visualgas/logout')
+         .success(function(data, status){
+           if(status === 200){
+             $state.transitionTo('home')
+           }
+         });
   }
 });
 
@@ -29,7 +34,7 @@ visualGas.controller('loginCtrl', function($http, $scope, $state, $rootScope){
   }
 })
 
-visualGas.controller('signupCtrl', function($http, $rootScope, $scope){
+visualGas.controller('signupCtrl', function($http, $rootScope, $state, scope){
   $scope.signUp = function(){
     $http.post('/visualgas/signup', {
       username: $scope.email,
@@ -53,6 +58,14 @@ visualGas.controller('accountCtrl', function($scope){
 
 visualGas.controller('dataCtrl', function($http, $scope, $modal){
 
+  $scope.xOptions = [{val : 'date', name : 'Time'},
+                     {val : 'ppg', name : 'Price Pre Gallon'},
+                     {val : 'mileage', name : 'Mileage'},
+                     {val : 'gallons', name : 'Gallons'}];
+  $scope.yOptions = [{val : 'ppg', name : 'Price Pre Gallon'},
+                     {val : 'mileage', name : 'Mileage'},
+                     {val : 'gallons', name : 'Gallons'}];
+
   $scope.deleteEntry = function(entry){
     $http.delete('/visualgas/entry?id=' + entry['_id'])
     .success(function(data, status){
@@ -65,12 +78,12 @@ visualGas.controller('dataCtrl', function($http, $scope, $modal){
   }
 
   $scope.getEntries = function(){
-    $http.get('/visualgas/myentries')
+    return $http.get('/visualgas/myentries')
     .success(function(data, status){
       $scope.entries = data;
-      console.log(data);
       angular.forEach($scope.entries, function(entry){
-        entry.dateString = new Date(entry.date).toLocaleDateString();
+        entry.date = new Date(entry.date);
+        entry.dateString = entry.date.toLocaleDateString();
       })
       $scope.entries.sort(function(a, b){
         var datea = new Date(a.date),
@@ -100,7 +113,18 @@ visualGas.controller('dataCtrl', function($http, $scope, $modal){
     })
   }
 
-  $scope.getEntries();
+  $scope.changeGraphData = function(){
+    var data = [];
+    angular.forEach($scope.entries, function(entry){
+      var obj = {};
+      obj.x = entry[$scope.graphDataX];
+      obj.y = entry[$scope.graphDataY];
+      data.push(obj);
+    });
+    $scope.graphData = data;
+  }
+
+  $scope.getEntries().then($scope.changeGraphData());
 })
 
 visualGas.controller('addEntryModalCtrl', function($http, $scope, $modalInstance){
