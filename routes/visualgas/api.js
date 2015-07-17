@@ -1,49 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var Entry = require('../models/entry')
-
-router.get('/', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
-  res.render('visualgas/templates/main',
-             {
-               title:'Visual Gas'
-             }
-  );
-});
-
-router.get('/home', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
-  res.render('visualgas/home');
-})
-
-router.get('/data', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
-  res.render('visualgas/data');
-});
-
-router.get('/account', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
-  res.render('visualgas/account');
-});
-
-router.get('/signup', function(req, res, next){
-  var user;
-  if(!req.user) {
-    res.render('visualgas/signup');
-  } else res.redirect('/visualgas');
-})
-
-router.get('/login', function(req, res, next){
-  var user;
-  if(!req.user){
-    res.render('visualgas/login');
-  } else res.redirect('/visualgas/home');
-});
+var Entry = require('../../models/entry')
 
 router.post('/login', function(req, res, next){
   passport.authenticate('local-login', function(err, user, info) {
@@ -93,11 +51,7 @@ router.post('/logout', function(req, res, next){
   return res.status(200).end();
 });
 
-router.get('/templates/addentrymodal', function(req, res, next){
-  res.render('visualgas/templates/addentrymodal');
-})
-
-router.post('/addEntry', isAuth, function(req, res, next) {
+router.post('/entry', isAuth, function(req, res, next) {
   if(isEmpty(req.body.mileage) || isEmpty(req.body.gallons) || isEmpty(req.body.date) || isEmpty(req.body.ppg)) return res.status(400).end();
 
   var entry = new Entry();
@@ -130,7 +84,7 @@ router.delete('/entry', isAuth, function(req, res, next){
   });
 })
 
-router.get('/myentries', isAuth, function(req, res, next) {
+router.get('/entries', isAuth, function(req, res, next) {
   Entry.find({user: req.user['_id']}).lean().exec(function (err, docs){
     res.status(200).send(docs);
   });
