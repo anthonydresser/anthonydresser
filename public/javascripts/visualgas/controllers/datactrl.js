@@ -1,5 +1,19 @@
 angular.module('visualGas')
-.controller('dataCtrl', function($http, $scope, $modal, api, entryData){
+.controller('dataCtrl', function($window, $http, $scope, $modal, api, entryData){
+
+  $(document).ready(function(){
+    // console.log('offset ' + $('.entryCol').offset().top);
+    // console.log('height' + angular.element($window)[0].innerHeight);
+    $('.entryCol').height(angular.element($window)[0].innerHeight - $('.entryCol').offset().top - 10);
+  })
+
+  $scope.$watch(function(){
+    return angular.element($window)[0].innerHeight;
+  }, function(){
+    // console.log('offset ' + $('.entryCol').offset().top);
+    // console.log('height' + angular.element($window)[0].innerHeight);
+    $('.entryCol').height(angular.element($window)[0].innerHeight - $('.entryCol').offset().top - 10);
+  })
 
   $scope.changeGraphData = function(){
     var data = [];
@@ -18,9 +32,34 @@ angular.module('visualGas')
     $scope.graphData = data;
   }
 
+  $scope.updateData = function(){
+    angular.forEach($scope.entries, function(entry, key){
+      if(key < ($scope.entries.length - 1)){
+        entry.avg = (entry.mileage - $scope.entries[key + 1].mileage)/entry.gallons;
+        entry.avg = 10*entry.avg;
+        entry.avg = Math.round(entry.avg);
+        entry.avg = entry.avg/10;
+        if(key < ($scope.entries.length - 2)){
+          if(entry.avg > $scope.entries[key + 1].avg){
+            entry.avgStyle = {'color':'green'};
+          } else if(entry.avg < $scope.entries[key + 1].avg){
+            entry.avgStyle = {'color':'red'};
+          } else {
+            entry.avgStyle = {'color':'black'};
+          }
+        } else {
+          entry.avgStyle = {'color':'black'};
+        }
+      } else if(entry.avg){
+        delete entry.avg;
+      }
+    })
+  }
+
   $scope.$watch(function(){
     return $scope.entries;
   }, function(){
+    $scope.updateData();
     $scope.changeGraphData();
   });
 
@@ -51,16 +90,29 @@ angular.module('visualGas')
     return api.get.entries()
     .success(function(data, status){
       $scope.entries = data;
-      angular.forEach($scope.entries, function(entry, key){
-        if(key > 0){
-          entry.avg = (entry.mileage - data[key - 1].mileage)/entry.gallons;
-        }
+      angular.forEach($scope.entries, function(entry){
         entry.date = new Date(entry.date);
         entry.dateString = entry.date.toLocaleDateString();
+        $scope.entries.sort(function(a, b){
+          return a.date < b.date;
+        });
       })
-      $scope.entries.sort(function(a, b){
-        return a.date < b.date;
-      });
+      angular.forEach($scope.entries, function(entry, key){
+        if(key < ($scope.entries.length - 1)){
+          entry.avg = (entry.mileage - $scope.entries[key + 1].mileage)/entry.gallons;
+          if(key > ($scope.entries.length - 2)){
+            if(entry.avg > $scope.entries[key + 1].avg){
+              entry.avgStyle = {'color':'green'};
+            } else if(entry.avg < $scope.entries[key + 1].avg){
+              entry.avgStyle = {'color':'red'};
+            } else {
+              entry.avgStyle = {'color':'black'};
+            }
+          } else {
+            entry.avgStyle = {'color':'black'};
+          }
+        }
+      })
     });
   }
 
