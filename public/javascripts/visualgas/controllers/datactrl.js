@@ -5,7 +5,7 @@ angular.module('visualGas')
     var data = [];
     angular.forEach($scope.entries, function(entry, key){
       var isAvg = $scope.graphDataX == 'avg' || $scope.graphDataY == 'avg';
-      if((isAvg && (key != $scope.entries.length - 1)) || !isAvg){
+      if((isAvg && entry.avg) || !isAvg){
         var obj = {};
         obj.x = entry[$scope.graphDataX];
         obj.y = entry[$scope.graphDataY];
