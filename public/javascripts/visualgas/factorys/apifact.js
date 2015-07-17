@@ -1,5 +1,5 @@
 angular.module('visualGas')
-  .factory('api', ['$http', function($http){
+  .factory('api', ['$http', function($http, $state){
 
     var urlBase = '/visualgas/api/';
     var api = {};
@@ -9,7 +9,10 @@ angular.module('visualGas')
     api.delete = {};
 
     api.get.entries = function(){
-      return $http.get(urlBase + 'entries');
+      return $http.get(urlBase + 'entries')
+                  .error(function(data, status){
+                    if(status === 401)  $state.transitionTo('login');
+                  });
     }
 
     api.post.login = function(email, password){
@@ -36,11 +39,16 @@ angular.module('visualGas')
         gallons: gallons,
         ppg: ppg,
         date: date
+      }).error(function(data, status){
+        if(status === 401)  $state.transitionTo('login');
       });
     }
 
     api.delete.entry = function(id){
-      return $http.delete(urlBase + 'entry?id=' + id);
+      return $http.delete(urlBase + 'entry?id=' + id)
+                  .error(function(data, status){
+                    if(status === 401)  $state.transitionTo('login');
+                  });
     }
 
     return api;
