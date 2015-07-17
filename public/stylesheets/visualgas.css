@@ -41,11 +41,6 @@
 
 /* Testing done */
 
-
-.container-fluid {
-  padding: 0;
-}
-
 #body {
   background-color: white;
   min-height: 100%;
@@ -119,4 +114,15 @@
 }
 .bar {
     fill: FireBrick;
+}
+
+/* entry styling */
+
+.entry {
+  width: 100%;
+}
+
+.entryCol {
+  overflow: auto;
+  margin-top: 20px;
 }

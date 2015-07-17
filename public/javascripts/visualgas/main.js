@@ -32,16 +32,31 @@ angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
         entryData : function(api){
           return api.get.entries()
                         .success(function(data, status){
-                          angular.forEach(data, function(entry, key){
-                            if(key > 0){
-                              entry.avg = (entry.mileage - data[key - 1].mileage)/entry.gallons;
-                            }
+                          angular.forEach(data, function(entry){
                             entry.date = new Date(entry.date);
                             entry.dateString = entry.date.toLocaleDateString();
+                            data.sort(function(a, b){
+                              return a.date < b.date;
+                            });
                           })
-                          data.sort(function(a, b){
-                            return a.date < b.date;
-                          });
+                          angular.forEach(data, function(entry, key){
+                            if(key < (data.length - 1)){
+                              entry.avg = (entry.mileage - data[key + 1].mileage)/entry.gallons;
+                              if(key < (data.length - 2)){
+                                if(entry.avg > data[key + 1].avg){
+                                  console.log(entry.avg + ' is greater than ' + data[key + 1].avg);
+                                  entry.avgStyle = {'color':'green'};
+                                } else if(entry.avg < data[key + 1].avg){
+                                  console.log(entry.avg + ' is less than ' + data[key + 1].avg)
+                                  entry.avgStyle = {'color':'red'};
+                                } else {
+                                  entry.avgStyle = {'color':'black'};
+                                }
+                              } else {
+                                entry.avgStyle = {'color':'black'};
+                              }
+                            }
+                          })
                           return data;
                         })
         }
