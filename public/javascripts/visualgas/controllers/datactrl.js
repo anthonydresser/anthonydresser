@@ -4,7 +4,8 @@ angular.module('visualGas')
   $scope.changeGraphData = function(){
     var data = [];
     angular.forEach($scope.entries, function(entry, key){
-      if((($scope.graphDataX == 'avg' || $scope.graphDataY == 'avg') && (key > 0)) || ($scope.graphDataX != 'avg' && $scope.graphDataY != 'avg')){
+      var isAvg = $scope.graphDataX == 'avg' || $scope.graphDataY == 'avg';
+      if((isAvg && (key != $scope.entries.length - 1)) || !isAvg){
         var obj = {};
         obj.x = entry[$scope.graphDataX];
         obj.y = entry[$scope.graphDataY];
@@ -56,7 +57,6 @@ angular.module('visualGas')
         }
         entry.date = new Date(entry.date);
         entry.dateString = entry.date.toLocaleDateString();
-        console.log(entry.dateString + '  ' + key);
       })
       $scope.entries.sort(function(a, b){
         return a.date < b.date;
