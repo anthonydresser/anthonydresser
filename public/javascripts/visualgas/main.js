@@ -1,6 +1,5 @@
-var visualGas = angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3']);
-
-visualGas.config(function($stateProvider, $urlRouterProvider){
+angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
+.config(function($stateProvider, $urlRouterProvider){
 
   $urlRouterProvider.otherwise('/home')
 
@@ -28,6 +27,25 @@ visualGas.config(function($stateProvider, $urlRouterProvider){
     .state('data', {
       url: '/data',
       templateUrl : 'data',
-      controller : 'dataCtrl'
+      controller : 'dataCtrl',
+      resolve: {
+        entryData : function(api){
+          return api.get.entries()
+                        .success(function(data, status){
+                          angular.forEach(data, function(entry, key){
+                            if(key > 0){
+                              entry.avg = (entry.mileage - data[key - 1].mileage)/entry.gallons;
+                            }
+                            entry.date = new Date(entry.date);
+                            entry.dateString = entry.date.toLocaleDateString();
+                            console.log(entry.dateString + '  ' + key);
+                          })
+                          data.sort(function(a, b){
+                            return a.date < b.date;
+                          });
+                          return data;
+                        })
+        }
+      }
     })
-});
+})
