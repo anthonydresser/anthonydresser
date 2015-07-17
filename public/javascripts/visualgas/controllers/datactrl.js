@@ -1,20 +1,6 @@
 angular.module('visualGas')
 .controller('dataCtrl', function($window, $http, $scope, $modal, api, entryData){
 
-  $(document).ready(function(){
-    // console.log('offset ' + $('.entryCol').offset().top);
-    // console.log('height' + angular.element($window)[0].innerHeight);
-    $('.entryCol').height(angular.element($window)[0].innerHeight - $('.entryCol').offset().top - 10);
-  })
-
-  $scope.$watch(function(){
-    return angular.element($window)[0].innerHeight;
-  }, function(){
-    // console.log('offset ' + $('.entryCol').offset().top);
-    // console.log('height' + angular.element($window)[0].innerHeight);
-    $('.entryCol').height(angular.element($window)[0].innerHeight - $('.entryCol').offset().top - 10);
-  })
-
   $scope.changeGraphData = function(){
     var data = [];
     angular.forEach($scope.entries, function(entry, key){
