@@ -19,6 +19,7 @@ angular.module('visualGas')
   }
 
   $scope.updateData = function(){
+    var data = $scope.entries
     angular.forEach($scope.entries, function(entry, key){
       if(key < ($scope.entries.length - 1)){
         entry.avg = (entry.mileage - $scope.entries[key + 1].mileage)/entry.gallons;
