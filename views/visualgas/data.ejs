@@ -4,26 +4,28 @@
       <button ng-click="addEntry()" style="margin-top: 10px; width: 100%" class="media btn btn-default">
         <span class="media-center" style="width: 20px; display: block; margin-right: auto; margin-left: auto; border-radius: 2px; padding: 5px;"><i class="fa fa-plus"></i></span>
       </button>
-      <div ng-if="entries.length == 0 || !entries">
-        <h2 class="text-center" style="color: black">You don't have any entries. Start by selecting the Add Entry button at the top</h2>
-      </div>
-      <div class="entry media" ng-if="entries.length > 0" ng-repeat="entry in entries">
-        <div class="media-left">
-          <div>{{entry.dateString}}</div>
-          <div>{{entry.gallons}}</div>
-          <div>{{entry.mileage}}</div>
-          <div>{{entry.ppg | currency}}</div>
-          <div ng-show="entry.avg">{{entry.avg}}</div>
+      <div class="entryCol">
+        <div ng-if="entries.length == 0 || !entries">
+          <h2 class="text-center" style="color: black">You don't have any entries. Start by selecting the Add Entry button at the top</h2>
         </div>
-        <div class="media-right media-top">
-          <button ng-click="deleteEntry(entry)">
-            <i class="fa fa-trash-o"></i>
-          </button>
+        <div class="entry media" ng-if="entries.length > 0" ng-repeat="entry in entries">
+          <div class="media-body">
+            <div>{{entry.dateString}}</div>
+            <div><strong>Gallons:</strong> {{entry.gallons}}</div>
+            <div><strong>Mileage:</strong> {{entry.mileage}}</div>
+            <div><strong>Price Per Gallon:</strong> {{entry.ppg | currency}}</div>
+            <div ng-show="entry.avg"><strong>Miles Per Gallon:</strong> <text ng-style="entry.avgStyle">{{entry.avg}}</text></div>
+          </div>
+          <div class="media-right media-top">
+            <button ng-click="deleteEntry(entry)">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-md-9">
-      <div class="row">
+      <div style="margin-top: 10px" class="row">
         <div class="form-inline">
           <div class="col-md-2 col-md-offset-3">
             <select ng-init="graphDataY = yOptions[0].val" ng-model="graphDataY" ng-change="changeGraphData()" ng-options="option.val as option.name for option in yOptions" class="form-control center block">

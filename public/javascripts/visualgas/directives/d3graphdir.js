@@ -43,13 +43,17 @@ angular.module('visualGas')
 
             if(!data) return;
 
-            var heightOffset = svg[0][0].getBoundingClientRect().top + 50;
+            var heightOffset = svg[0][0].getBoundingClientRect().top;
+            console.log(angular.element($window)[0].innerHeight)
+            console.log(heightOffset);
+
+            svg.style('height', parseInt(angular.element($window)[0].innerHeight - heightOffset));
 
             var width = d3.select(element[0])[0][0].offsetWidth - margin,
 
-            height = svg[0][0].offsetHeight - heightOffset,
+            height = svg[0][0].offsetHeight - heightOffset;
 
-            xRange,
+            var xRange,
 
             yRange = d3.scale.linear().range([20, height]).domain([d3.max(data, function(d){
               return d.y;
