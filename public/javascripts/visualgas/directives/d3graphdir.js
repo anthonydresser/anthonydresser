@@ -15,6 +15,8 @@ angular.module('visualGas')
           .style('width', '100%')
           .style('height', '100%');
 
+          scope.$apply();
+
           $window.onresize = function() {
             scope.$apply();
           }
@@ -29,7 +31,7 @@ angular.module('visualGas')
             return angular.element($window)[0].innerHeight;
           }, function(){
             scope.render(scope.data);
-          })
+          });
 
           scope.$watch('data', function(newVals, oldVals){
             return scope.render(newVals);
@@ -43,15 +45,20 @@ angular.module('visualGas')
 
             if(!data) return;
 
-            var heightOffset = svg[0][0].getBoundingClientRect().top;
-            console.log(angular.element($window)[0].innerHeight)
+            var heightOffset = svg[0][0].getBoundingClientRect().top + 50;
+
             console.log(heightOffset);
+            console.log(svg[0][0].offsetHeight);
 
-            svg.style('height', parseInt(angular.element($window)[0].innerHeight - heightOffset));
+            var width = d3.select(element[0])[0][0].offsetWidth - margin;
 
-            var width = d3.select(element[0])[0][0].offsetWidth - margin,
+            var height;
 
-            height = svg[0][0].offsetHeight - heightOffset;
+            if(angular.element($window)[0].innerWidth < 991){
+              height = .9*svg[0][0].offsetHeight;
+            } else {
+              height = svg[0][0].offsetHeight - heightOffset
+            }
 
             var xRange,
 
