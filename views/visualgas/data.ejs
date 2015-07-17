@@ -13,6 +13,7 @@
           <div>{{entry.gallons}}</div>
           <div>{{entry.mileage}}</div>
           <div>{{entry.ppg | currency}}</div>
+          <div ng-show="entry.avg">{{entry.avg}}</div>
         </div>
         <div class="media-right media-top">
           <button ng-click="deleteEntry(entry)">

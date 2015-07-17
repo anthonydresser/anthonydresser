@@ -8,7 +8,6 @@ angular.module('visualGas')
 
       api.post.entry($scope.mileage, $scope.gallons, $scope.ppg, date)
               .success(function(data, status){
-                console.log(data);
                 $modalInstance.close();
               })
               .error(function(data, status){
