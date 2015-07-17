@@ -47,9 +47,6 @@ angular.module('visualGas')
 
             var heightOffset = svg[0][0].getBoundingClientRect().top + 50;
 
-            console.log(heightOffset);
-            console.log(svg[0][0].offsetHeight);
-
             var width = d3.select(element[0])[0][0].offsetWidth - margin;
 
             var height;
