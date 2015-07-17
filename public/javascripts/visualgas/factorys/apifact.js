@@ -1,5 +1,5 @@
 angular.module('visualGas')
-  .factory('api', ['$http', function($http, $state){
+  .factory('api', ['$http', '$state', function($http, $state){
 
     var urlBase = '/visualgas/api/';
     var api = {};

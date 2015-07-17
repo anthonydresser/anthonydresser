@@ -38,7 +38,6 @@ angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
                             }
                             entry.date = new Date(entry.date);
                             entry.dateString = entry.date.toLocaleDateString();
-                            console.log(entry.dateString + '  ' + key);
                           })
                           data.sort(function(a, b){
                             return a.date < b.date;
