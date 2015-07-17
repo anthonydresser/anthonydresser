@@ -5,8 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var visualgas = require('./routes/visualgas');
+var mainRoutes = require('./routes/index');
+var visualgasRoutes = require('./routes/visualgas/index');
+var visualgasApiRoutes = require('./routes/visualgas/api')
 var mongoose = require('mongoose');
 var credentials = require('./config/credentials.js');
 var passport = require('passport');
@@ -34,29 +35,9 @@ app.use(flash());
 
 require('./config/passport.js')(passport);
 
-
-app.post('/logintest',
-  function(req, res, next) {
-    console.log(req);
-    console.log('before authenticate');
-    passport.authenticate('local-login', function(err, user, info) {
-      console.log('authenticate callback');
-      if (err) { return res.send({'status':'err','message':err.message}); }
-      if (!user) { return res.send({'status':'fail','message':info.message}); }
-      console.log(user);
-      req.logIn(user, function(err) {
-        if (err) { return res.send({'status':'err','message':err.message}); }
-        return res.send({'status':'ok'});
-      });
-    })(req, res, next);
-  },
-  function(err, req, res, next) {
-    // failure in login test route
-    return res.send({'status':'err','message':err.message});
-  });
-
-app.use('/', routes);
-app.use('/visualgas', visualgas);
+app.use('/', mainRoutes);
+app.use('/visualgas', visualgasRoutes);
+app.use('/visualgas/api', visualgasApiRoutes);
 
 var connect = function() {
   mongoose.connect(credentials.dburl);
