@@ -17,9 +17,7 @@
         <ul class="nav navbar-nav">
           <li ng-show="$root.user"><a ui-sref="account">Account</a></li>
           <li ng-show="$root.user" id="logout">
-            <form action="/visualgas/logout" method="post">
-              <input type="submit" value="Logout">
-            </form>
+            <a href="" ng-click="logout()">Logout</a>
           </li>
         </ul>
       </div>
