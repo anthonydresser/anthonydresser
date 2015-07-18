@@ -1,7 +1,16 @@
 
-<div ng-controller="indexCtrl" class="container-fluid">
-  <div class="jumbotron">
-    <h1>Anthony Dresser</h1>
-    <p>Designing front end, hardware, and everything in between.</p>
+<div ng-controller="indexCtrl">
+  <div id="mainJumbotron" class="jumbotron">
+    <div style="position: absolute; bottom: 65%; right: 0; left: 0;" class="text-center">
+      <h1>Anthony Dresser</h1>
+      <p>Designing front end, hardware, and everything in between.</p>
+    </div>
+    <carousel id="carousel" style="background-color: black; opacity: 0.5; height: 100px; width: 100%; position: absolute; bottom: 0" interval="interval">
+    <slide ng-repeat="slide in slides" active="slide.active">
+      <h3 style="color: white">{{slide.text}}</h3>
+    </slide>
+  </carousel>
   </div>
+</div>
+<div class="container">
 </div>

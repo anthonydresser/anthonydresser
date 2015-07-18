@@ -15,8 +15,6 @@ angular.module('visualGas')
           .style('width', '100%')
           .style('height', '100%');
 
-          scope.$apply();
-
           $window.onresize = function() {
             scope.$apply();
           }
@@ -46,9 +44,6 @@ angular.module('visualGas')
             if(!data) return;
 
             var heightOffset = svg[0][0].getBoundingClientRect().top + 50;
-
-            console.log(heightOffset);
-            console.log(svg[0][0].offsetHeight);
 
             var width = d3.select(element[0])[0][0].offsetWidth - margin;
 
