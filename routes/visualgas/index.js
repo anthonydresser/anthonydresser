@@ -12,40 +12,28 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/home', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
   res.render('visualgas/home');
 })
 
 router.get('/data', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
   res.render('visualgas/data');
 });
 
 router.get('/account', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
   res.render('visualgas/account');
 });
 
 router.get('/signup', function(req, res, next){
-  var user;
-  if(!req.user) {
-    res.render('visualgas/signup');
-  } else res.redirect('/visualgas');
+  res.render('visualgas/signup');
 })
 
 router.get('/login', function(req, res, next){
-  var user;
-  if(!req.user){
-    res.render('visualgas/login');
-  } else res.redirect('/visualgas/home');
+  res.render('visualgas/login');
 });
 
 router.get('/templates/addentrymodal', function(req, res, next){
   res.render('visualgas/templates/addentrymodal');
-})
+});
 
 function isAuth(req, res, next) {
   if(req.isAuthenticated()) return next();
