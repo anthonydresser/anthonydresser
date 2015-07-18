@@ -44,6 +44,13 @@ angular.module('visualGas')
       });
     }
 
+    api.post.recommendation = function(text, subject){
+      return $http.post(urlBase + 'recommendation', {
+        email: text,
+        subject: subject
+      });
+    }
+
     api.delete.entry = function(id){
       return $http.delete(urlBase + 'entry?id=' + id)
                   .error(function(data, status){

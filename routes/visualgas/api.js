@@ -1,7 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var Entry = require('../../models/entry')
+var Entry = require('../../models/entry');
+var nodemailer = require('nodemailer');
+var credentials = require('../../config/credentials');
+var transporter = nodemailer.createTransport('SMTP', {
+  service: 'Gmail',
+  auth: {
+    user: credentials.emailUsername,
+    pass: credentials.emailPassword
+  }
+});
 
 router.post('/login', function(req, res, next){
   passport.authenticate('local-login', function(err, user, info) {
@@ -88,6 +97,26 @@ router.get('/entries', isAuth, function(req, res, next) {
   Entry.find({user: req.user['_id']}).lean().exec(function (err, docs){
     res.status(200).send(docs);
   });
+});
+
+router.post('/recommendation', isAuth, function(req, res, next){
+  if(isEmpty(req.body.email) || isEmpty(req.body.subject)) return res.status(400).end();
+
+  if(req.body.email.indexOf('<script>') > -1){
+    console.log('User ' + req.user['_id'] + ' attempted to inject a script into the email service');
+    return res.status(400).end()
+  }
+
+  var email = '<p>' + req.body.email + '</p><p>Sent from user ' + req.user['_id'] + '</p>';
+
+  transporter.sendMail({
+    from: req.user.email,
+    to: credentials.emailUsername,
+    subject: req.body.subject,
+    text: email
+  })
+
+  return res.status(200).end();
 })
 
 function isAuth(req, res, next) {

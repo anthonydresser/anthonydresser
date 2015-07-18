@@ -15,8 +15,6 @@ angular.module('visualGas')
           .style('width', '100%')
           .style('height', '100%');
 
-          scope.$apply();
-
           $window.onresize = function() {
             scope.$apply();
           }
