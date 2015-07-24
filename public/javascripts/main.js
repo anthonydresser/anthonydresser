@@ -7,10 +7,12 @@ mainApp.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
     .state('/', {
       url: '/',
-      templateUrl : '/index'
+      templateUrl : '/index',
+      controller: 'indexCtrl'
     })
     .state('projects', {
       url: '/projects',
-      templateUrl : '/projects'
+      templateUrl : '/projects',
+      controller: 'projectsCtrl'
     });
 });
