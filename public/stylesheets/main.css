@@ -1,52 +1,19 @@
 .navbar {
-	top: 0;
-	left: 0;
-	right: 0;
-  position: fixed;
+  margin-bottom: 0;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.navbar-default .navbar-brand {
-  color: #0047B2;
-}
-
-.navbar-default.transparent .navbar-brand {
-	color: white;
-}
-
-.navbar-default i {
-	color: #0047B2;
-}
-
-.navbar-default.transparent i {
-	color: white;
-}
-
-.navbar-default .navbar-nav>li>a {
-  color: #0047B2;
-}
-
-.navbar-default.transparent .navbar-nav>li>a{
-	color: white;
-}
-
-.navbar-default.transparent{
-  background-color: transparent;
-}
-
-.navbar-default {
-	background-color: white;
-}
-
-.jumbotron img {
-  float: right;
-  height: 100%;
-  width: auto;
+.container-fluid {
+  padding: 0;
 }
 
 .jumbotron {
-	position: relative;
-  color: white;
-  height: 60%;
+  height: 70%;
+}
+
+.jumbotron img {
+	margin-top: 20px;
 }
 
 .affix-top,.affix{
@@ -70,23 +37,4 @@
 article img {
   width: 100%;
   height: auto;
-}
-
-#mainJumbotron {
-  background-image: url('/images/20150613_161903.jpg');
-  background-position: center center;
-  background-size: cover;
-}
-
-.marginLeft {
-	margin-left: -15px;
-}
-
-/* coursel styling */
-.right.carousel-control, .left.carousel-control {
-    display: none;
-}
-
-.carousel-indicators {
-  display:none;
 }
