@@ -1,7 +1,7 @@
 (function(){
   var mainApp = angular.module('mainApp');
 
-  mainApp.controller('indexCtrl', function($scope){
+  mainApp.controller('indexCtrl', function($rootScope, $scope){
 
     $scope.interval = 2500;
     $scope.slides = [{text: 'Javascript'},
@@ -35,8 +35,11 @@
       if($(window).width() <= 768){
         $('#carousel').css('margin-left', '-15px');
         $('#navBar').removeClass('transparent');
+        $rootScope.smallScreen = true;
       } else {
         $('#carousel').css('margin-left','0px');
+        $('#navBar').addClass('transparent');
+        $rootScope.smallScreen = false;
       }
     });
 
@@ -55,11 +58,13 @@
       if($(window).width() <= 768){
         $('#carousel').css('margin-left', '-15px');
         $('#navBar').removeClass('transparent');
+        $rootScope.smallScreen = true;
       } else {
         $('#carousel').css('margin-left', '0px');
         $('#navBar').addClass('transparent');
+        $rootScope.smallScreen = false;
       }
-    })
+    });
   })
 
   mainApp.controller('projectsCtrl', function(){
