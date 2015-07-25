@@ -10,10 +10,16 @@
 
 .jumbotron {
   height: 70%;
+	margin-bottom: 0;
 }
 
 .jumbotron img {
 	margin-top: 20px;
+}
+
+.contentRow {
+	height: 100%;
+	width: 100%;
 }
 
 article img {

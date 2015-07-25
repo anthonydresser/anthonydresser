@@ -29,46 +29,35 @@
       } else {
         $('#credit').show();
       }
-      console.log($('#mainJumbotron').innerHeight());
-      console.log($('#carousel').innerHeight());
-      console.log($('#navbar').innerHeight());
-      console.log($('#mainJumbotron').css('padding-top'));
-      console.log($('#mainJumbotron').css('padding-bottom'));
       $('#credit').css('width', $('#credit').children().innerWidth());
       $('#credit').css('margin-left', $(window).innerWidth() - $('#credit').children().innerWidth() - 10);
-      $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navbar').innerHeight());
+      $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - 10);
       if($(window).width() <= 768){
         $('#carousel').css('margin-left', '-15px');
-        $('.navbar').removeClass('transparent');
+        $('#navBar').removeClass('transparent');
       } else {
         $('#carousel').css('margin-left','0px');
       }
     });
 
-    $(window).scroll(function(){
-      if(!didScroll){
-        didScroll = true;
-
-        console.log('Jumbo Height ' + $('.mainJumbotron').height());
-        console.log('Scroll Dist ' + $(document).scrollTop());
-
-        if($(document).scrollTop() >= $('#mainJumbotron').height()){
-          console.log('Would transition');
-        }
-        didScroll = false;
+    $(document).on('scroll', function(){
+      if($(document).scrollTop() > $('#mainJumbotron').outerHeight() - $('#navBar').outerHeight()){
+        $('#navBar').removeClass('transparent');
+      } else {
+        $('#navBar').addClass('transparent');
       }
-    }, false)
+    })
 
     $(window).resize(function(){
       $('#credit').css('margin-left', $(window).innerWidth() - $('#credit').children().innerWidth() - 10);
-      $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navbar').innerHeight());
+      $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - 10);
 
       if($(window).width() <= 768){
         $('#carousel').css('margin-left', '-15px');
-        $('.navbar').removeClass('transparent');
+        $('#navBar').removeClass('transparent');
       } else {
         $('#carousel').css('margin-left', '0px');
-        $('.navbar').addClass('transparent');
+        $('#navBar').addClass('transparent');
       }
     })
   })
