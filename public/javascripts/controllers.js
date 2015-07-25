@@ -42,7 +42,7 @@
 
     $(document).on('scroll', function(){
       if($(document).scrollTop() > $('#mainJumbotron').outerHeight() - $('#navBar').outerHeight()){
-        $('#navBar').removeClass('transparent');
+        if($(window).width() >= 787)  $('#navBar').removeClass('transparent');
       } else {
         $('#navBar').addClass('transparent');
       }
