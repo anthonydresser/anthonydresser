@@ -52,8 +52,10 @@ mainApp.controller('homeCtrl', function($rootScope, $scope){
   })
 
   $(window).resize(function(){
+    $('#contact').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - $('#contact').height());
+    $('#credit').css('width', $('#credit').children().innerWidth());
     $('#credit').css('margin-left', $(window).innerWidth() - $('#credit').children().innerWidth() - 10);
-    $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - 10);
+    $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - $('#credit').height());
 
     if($(window).width() <= 768){
       $('#carousel').css('margin-left', '-15px');
