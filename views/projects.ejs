@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-s-12 col-xs-12">
-          <h1>Visual Gas</h1>
-          <p>Track your usage; Track your car</p>
-          <p><a class="btn btn-primary btn-md" href="/visualgas/" role="button">Learn More</a></p>
+          <h1>{{main.name}}</h1>
+          <p>{{main.short}}</p>
+          <p><a class="btn btn-primary btn-md" href="{{main.link}}" role="button">Learn More</a></p>
         </div>
-        <div class="col-lg-6 col-md-6 col-s-6 col-xs-6">
-          <img class="img-responsive col-xs-12" src="images/gas.png">
+        <div class="col-lg-6 col-md-6 col-s-12 col-xs-12">
+          <img class="img-responsive col-xs-12" ng-src="{{main.image}}">
         </div>
       </div>
     </div>
@@ -17,16 +17,18 @@
 <div class="container">
   <div class="row">
     <div class="col-md-9">
-      <article id="visualgas">'
+      <article ng-repeat="project in projects" id="{{project.name}}">
         <div class="row">
           <div class="col-md-9 col-s-12 col-xs-12">
-            <h2>Visual Gas</h4>
-            <p>Ever wonder why sometimes you are filling up once a week and sometimes once a day? Well track your usage and visual see where your money is going.</p>
-            <p>By entering your usage data, you can easily see where your gas is going and start to see the trends in your usage. Using this information is up to you, but finding the trends is the first step.</p>
-            <p><a class="btn btn-primary btn-md" href="/visualgas" role="button">Use it here</a></p>
+            <h2>{{project.name}}</h4>
+            <p>{{project.body}}</p>
+            <div id="tags">
+              <tag ng-repeat="tag in project.tags">{{tag}}</tag>
+            </div>
+            <p><a class="btn btn-primary btn-md" href="{{project.link}}" role="button">Use it here</a></p>
           </div>
           <div class="col-md-3 col-s-6 col-xs-6">
-            <img class="img-responsive" src="images/gas.png">
+            <img style="margin-top: 20px" class="img-responsive" ng-src="{{project.image}}">
           </div>
         </div>
       </article>

@@ -21,10 +21,25 @@
 	height: 100%;
 }
 
+tag {
+  background-color: #3F3B40;
+  color: white;
+  border-radius: 2px;
+  margin-right: 5px;
+  padding: 5px;
+  margin: 5px;
+  display: inline-block;
+}
+
+#tags {
+  margin-bottom: 10px;
+}
+
 article img {
   width: 100%;
   height: auto;
 }
+
 
 @font-face {
 	font-family: 'icomoon';
