@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mainRoutes = require('./routes/index');
+var mainApiRoutes = require('./routes/api');
 var visualgasRoutes = require('./routes/visualgas/index');
 var visualgasApiRoutes = require('./routes/visualgas/api')
 var mongoose = require('mongoose');
@@ -36,6 +37,7 @@ app.use(flash());
 require('./config/passport.js')(passport);
 
 app.use('/', mainRoutes);
+app.use('/api', mainApiRoutes);
 app.use('/visualgas', visualgasRoutes);
 app.use('/visualgas/api', visualgasApiRoutes);
 

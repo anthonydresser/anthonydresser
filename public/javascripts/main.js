@@ -1,18 +1,23 @@
-var mainApp = angular.module('mainApp', ['ui.router', 'ui.bootstrap','ngAnimate']);
+var mainApp = angular.module('mainApp', ['ui.router', 'ui.bootstrap']);
 
 mainApp.config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/')
+  $urlRouterProvider.otherwise('/home')
 
   $stateProvider
-    .state('/', {
-      url: '/',
-      templateUrl : '/index',
-      controller: 'indexCtrl'
+    .state('home', {
+      url: '/home',
+      templateUrl : 'home',
+      controller: 'homeCtrl'
     })
     .state('projects', {
       url: '/projects',
-      templateUrl : '/projects',
-      controller: 'projectsCtrl'
-    });
+      templateUrl : 'projects',
+      controller: 'projectsCtrl',
+      resolve: {
+        projects: function($http, api){
+          return api.get.projects();
+        }
+      }
+    })
 });
