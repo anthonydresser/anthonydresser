@@ -40,6 +40,36 @@ article img {
   height: auto;
 }
 
+.affix-top,.affix{
+	position: static;
+}
+
+.input-group-addon {
+  background: white !important;
+}
+
+.input-group > input {
+  border-right: 0;
+}
+
+.input-group-addon > button {
+  border: 0;
+  background-color: transparent;
+}
+
+@media (min-width: 979px) {
+  #sidebar.affix-top {
+    position: static;
+  	margin-top:30px;
+  	width:228px;
+  }
+
+  #sidebar.affix {
+    position: fixed;
+    top:70px;
+    width:228px;
+  }
+}
 
 @font-face {
 	font-family: 'icomoon';
