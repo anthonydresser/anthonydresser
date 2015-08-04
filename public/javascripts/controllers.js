@@ -3,7 +3,7 @@ var mainApp = angular.module('mainApp');
 mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects){
 
   console.log(projects);
-  $scope.recentProjects = projects.data.slice(0,2);
+  $scope.recentProjects = projects.data.slice(0,3);
   console.log($scope.recentProjects);
 
   $scope.interval = 2500;
