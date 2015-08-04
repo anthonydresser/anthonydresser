@@ -74,7 +74,7 @@ router.post('/entry', isAuth, function(req, res, next) {
   entry.date = date;
 
   entry.save(function(err){
-    if(err) res.status(500).end()
+    if(err) res.status(500).end();
     res.status(200).send(entry);
   });
 });
@@ -91,7 +91,7 @@ router.delete('/entry', isAuth, function(req, res, next){
       res.status(403).end();
     }
   });
-})
+});
 
 router.get('/entries', isAuth, function(req, res, next) {
   Entry.find({user: req.user['_id']}).lean().exec(function (err, docs){
@@ -114,10 +114,10 @@ router.post('/recommendation', isAuth, function(req, res, next){
     to: credentials.emailUsername,
     subject: req.body.subject,
     text: email
-  })
+  });
 
   return res.status(200).end();
-})
+});
 
 function isAuth(req, res, next) {
   if(req.isAuthenticated()) return next();

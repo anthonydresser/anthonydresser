@@ -49,7 +49,7 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
     } else {
       if($(window).width() >= 787)  $('#navBar').addClass('transparent');
     }
-  })
+  });
 
   $(window).resize(function(){
     if($(window).width() <= 768){
@@ -62,7 +62,7 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
       $rootScope.smallScreen = false;
     }
   });
-})
+});
 
 mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $location){
   $(document).ready(function(){
@@ -71,7 +71,7 @@ mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $lo
     } else {
       $('#rightCol').show();
     }
-  })
+  });
 
   $(window).resize(function(){
     if($(window).outerWidth() <= 992){
@@ -79,21 +79,21 @@ mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $lo
     } else {
       $('#rightCol').show();
     }
-  })
+  });
   $scope.scrollTo = function(id){
     $location.hash(id);
     $anchorScroll();
-  }
+  };
   $scope.projects = projects.data;
   angular.forEach($scope.projects, function(project){
     var dateString = new Date(project.published);
     project.dateString = dateString.toLocaleDateString();
     project.date = new Date(project.published);
-  })
+  });
   console.log($scope.projects);
   var max = projects.data.length - 1;
   var min = 0;
   var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(ranNum)
+  console.log(ranNum);
   $scope.main = projects.data[ranNum];
-})
+});

@@ -12,4 +12,4 @@ angular.module('visualGas')
                 if(status === 401) $scope.message = data;
               })
     }
-  })
+  });

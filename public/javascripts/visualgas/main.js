@@ -1,7 +1,7 @@
 angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
 .config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/home')
+  $urlRouterProvider.otherwise('/home');
 
   $stateProvider
     .state('home', {
@@ -38,7 +38,7 @@ angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
                             data.sort(function(a, b){
                               return a.date < b.date;
                             });
-                          })
+                          });
                           angular.forEach(data, function(entry, key){
                             if(key < (data.length - 1)){
                               entry.avg = (entry.mileage - data[key + 1].mileage)/entry.gallons;
@@ -47,7 +47,7 @@ angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
                                   console.log(entry.avg + ' is greater than ' + data[key + 1].avg);
                                   entry.avgStyle = {'color':'green'};
                                 } else if(entry.avg < data[key + 1].avg){
-                                  console.log(entry.avg + ' is less than ' + data[key + 1].avg)
+                                  console.log(entry.avg + ' is less than ' + data[key + 1].avg);
                                   entry.avgStyle = {'color':'red'};
                                 } else {
                                   entry.avgStyle = {'color':'black'};
@@ -56,10 +56,10 @@ angular.module('visualGas', ['ui.router', 'ui.bootstrap', 'd3'])
                                 entry.avgStyle = {'color':'black'};
                               }
                             }
-                          })
+                          });
                           return data;
                         })
         }
       }
     })
-})
+});

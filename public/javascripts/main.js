@@ -2,7 +2,7 @@ var mainApp = angular.module('mainApp', ['ngAnimate', 'ui.router', 'ui.bootstrap
 
 mainApp.config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('/home')
+  $urlRouterProvider.otherwise('/home');
 
   $stateProvider
     .state('home', {

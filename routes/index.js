@@ -12,6 +12,6 @@ router.get('/projects', function(req, res, next) {
 
 router.get('/home', function(req, res, next){
   res.render('home');
-})
+});
 
 module.exports = router;

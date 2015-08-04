@@ -14,12 +14,12 @@ angular.module('visualGas')
     });
     data.sort(function(a, b){
       return a.x > b.x;
-    })
+    });
     $scope.graphData = data;
-  }
+  };
 
   $scope.updateData = function(){
-    var data = $scope.entries
+    var data = $scope.entries;
     angular.forEach($scope.entries, function(entry, key){
       if(key < ($scope.entries.length - 1)){
         entry.avg = (entry.mileage - $scope.entries[key + 1].mileage)/entry.gallons;
@@ -41,7 +41,7 @@ angular.module('visualGas')
         delete entry.avg;
       }
     })
-  }
+  };
 
   $scope.$watch(function(){
     return $scope.entries;
@@ -71,7 +71,7 @@ angular.module('visualGas')
     }).error(function(data, status){
       console.log('Error: ' + status + ' ; ' + data);
     });
-  }
+  };
 
   $scope.getEntries = function(){
     return api.get.entries()
@@ -83,7 +83,7 @@ angular.module('visualGas')
         $scope.entries.sort(function(a, b){
           return a.date < b.date;
         });
-      })
+      });
       angular.forEach($scope.entries, function(entry, key){
         if(key < ($scope.entries.length - 1)){
           entry.avg = (entry.mileage - $scope.entries[key + 1].mileage)/entry.gallons;
@@ -101,14 +101,14 @@ angular.module('visualGas')
         }
       })
     });
-  }
+  };
 
   $scope.addEntry = function(){
     var modalInstance = $modal.open({
       animation: true,
       templateUrl: '/visualgas/templates/addentrymodal',
       controller: 'addEntryModalCtrl'
-    })
+    });
 
     modalInstance.result.then(function(){
       //TODO speed up this process
@@ -116,4 +116,4 @@ angular.module('visualGas')
     })
   }
 
-})
+});
