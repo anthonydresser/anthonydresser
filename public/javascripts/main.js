@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', ['ui.router', 'ui.bootstrap']);
+var mainApp = angular.module('mainApp', ['ngAnimate', 'ui.router', 'ui.bootstrap']);
 
 mainApp.config(function($stateProvider, $urlRouterProvider){
 
