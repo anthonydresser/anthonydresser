@@ -20,7 +20,26 @@
   <div class="container">
     <div class="row">
       <h2 class="text-center">Recent work</h2>
-      <h4 class="text-center">Check out my <a ui-sref="projects">projects page</a> for my recent work</h4>
+      <div class="row">
+        <div ng-repeat="project in recentProjects" class="col-md-4">
+          <div>
+            <img class="img-responsive" ng-src="{{project.image}}">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div ng-repeat="project in recentProjects" class="col-md-4">
+          <div class="text-center">
+            <h3>{{project.name}}</h3>
+          </div>
+          <div class="text-center">
+            {{project.short}}
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h5 class="text-center">Check out more of my work at the <a ui-sref="projects">projects page</a>.</h5>
+      <hr>
     </div>
     <div class="row">
       <div class="col-lg-4 col-md-4 col-s-12 col-xs-12">
