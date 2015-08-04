@@ -8,11 +8,6 @@
   padding: 0;
 }
 
-.jumbotron {
-  height: 70%;
-	margin-bottom: 0;
-}
-
 .jumbotron img {
 	margin-top: 20px;
 }
@@ -35,9 +30,16 @@ tag {
   margin-bottom: 10px;
 }
 
-article img {
+#contact {
+  position: absolute;
+  bottom: 100px;
   width: 100%;
-  height: auto;
+}
+
+#credit {
+  position: absolute;
+  bottom: 100px;
+  right: 0px;
 }
 
 .affix-top,.affix{

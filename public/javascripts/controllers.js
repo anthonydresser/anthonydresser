@@ -28,10 +28,6 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll){
     } else {
       $('#credit').show();
     }
-    $('#contact').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - $('#contact').height());
-    $('#credit').css('width', $('#credit').children().innerWidth());
-    $('#credit').css('margin-left', $(window).innerWidth() - $('#credit').children().innerWidth() - 10);
-    $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - $('#credit').height());
     if($(window).width() <= 768){
       $('#carousel').css('margin-left', '-15px');
       $('#navBar').removeClass('transparent');
@@ -52,11 +48,6 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll){
   })
 
   $(window).resize(function(){
-    $('#contact').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - $('#contact').height());
-    $('#credit').css('width', $('#credit').children().innerWidth());
-    $('#credit').css('margin-left', $(window).innerWidth() - $('#credit').children().innerWidth() - 10);
-    $('#credit').css('margin-top', $('#mainJumbotron').height() - $('#carousel').innerHeight() - $('#navBar').innerHeight() - $('#credit').height());
-
     if($(window).width() <= 768){
       $('#carousel').css('margin-left', '-15px');
       $('#navBar').removeClass('transparent');
@@ -70,6 +61,21 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll){
 })
 
 mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $location){
+  $(document).ready(function(){
+    if($(window).outerWidth() <= 992){
+      $('#rightCol').hide();
+    } else {
+      $('#rightCol').show();
+    }
+  })
+
+  $(window).resize(function(){
+    if($(window).outerWidth() <= 992){
+        $('#rightCol').hide();
+    } else {
+      $('#rightCol').show();
+    }
+  })
   $scope.scrollTo = function(id){
     $location.hash(id);
     $anchorScroll();
