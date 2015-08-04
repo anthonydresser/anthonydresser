@@ -1,6 +1,10 @@
 var mainApp = angular.module('mainApp');
 
-mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll){
+mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects){
+
+  console.log(projects);
+  $scope.recentProjects = projects.data.slice(0,2);
+  console.log($scope.recentProjects);
 
   $scope.interval = 2500;
   $scope.slides = [{text: 'Javascript'},

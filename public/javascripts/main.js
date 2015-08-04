@@ -8,7 +8,12 @@ mainApp.config(function($stateProvider, $urlRouterProvider){
     .state('home', {
       url: '/home',
       templateUrl : 'home',
-      controller: 'homeCtrl'
+      controller: 'homeCtrl',
+      resolve: {
+        projects: function($http, api){
+          return api.get.projects();
+        }
+      }
     })
     .state('projects', {
       url: '/projects',

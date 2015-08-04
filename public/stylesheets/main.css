@@ -36,6 +36,10 @@ tag {
   width: 100%;
 }
 
+.img-responsive {
+  margin: 0 auto;
+}
+
 #credit {
   position: absolute;
   bottom: 100px;
