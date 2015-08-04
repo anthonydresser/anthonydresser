@@ -8,6 +8,6 @@ var projectSchema = mongoose.Schema({
   link : String,
   image : String,
   tags : [String]
-})
+});
 
 module.exports = mongoose.model('Project', projectSchema);

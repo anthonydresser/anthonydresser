@@ -3,4 +3,4 @@ angular.module('visualGas')
     $scope.send = function(){
       api.post.recommendation($scope.content, $scope.subject);
     }
-  })
+  });

@@ -13,25 +13,25 @@ angular.module('visualGas')
                   .error(function(data, status){
                     if(status === 401)  $state.transitionTo('login');
                   });
-    }
+    };
 
     api.post.login = function(email, password){
       return $http.post(urlBase + 'login', {
         username: email,
         password: password
       });
-    }
+    };
 
     api.post.signup = function(email, password){
       return $http.post(urlBase + 'signup', {
         username: email,
         password: password
       });
-    }
+    };
 
     api.post.logout = function(){
       return $http.post(urlBase + 'logout');
-    }
+    };
 
     api.post.entry = function(mileage, gallons, ppg, date){
       return $http.post(urlBase + 'entry', {
@@ -42,22 +42,22 @@ angular.module('visualGas')
       }).error(function(data, status){
         if(status === 401)  $state.transitionTo('login');
       });
-    }
+    };
 
     api.post.recommendation = function(text, subject){
       return $http.post(urlBase + 'recommendation', {
         email: text,
         subject: subject
       });
-    }
+    };
 
     api.delete.entry = function(id){
       return $http.delete(urlBase + 'entry?id=' + id)
                   .error(function(data, status){
                     if(status === 401)  $state.transitionTo('login');
                   });
-    }
+    };
 
     return api;
 
-  }])
+  }]);

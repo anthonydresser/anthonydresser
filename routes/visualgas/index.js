@@ -13,7 +13,7 @@ router.get('/', function(req, res, next){
 
 router.get('/home', function(req, res, next){
   res.render('visualgas/home');
-})
+});
 
 router.get('/data', function(req, res, next){
   res.render('visualgas/data');
@@ -25,7 +25,7 @@ router.get('/account', function(req, res, next){
 
 router.get('/signup', function(req, res, next){
   res.render('visualgas/signup');
-})
+});
 
 router.get('/login', function(req, res, next){
   res.render('visualgas/login');

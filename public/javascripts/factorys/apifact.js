@@ -10,8 +10,8 @@ angular.module('mainApp')
 
     api.get.projects = function(){
       return $http.get('api/projects');
-    }
+    };
 
     return api;
 
-  }])
+  }]);

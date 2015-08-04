@@ -13,9 +13,9 @@ angular.module('visualGas')
               .error(function(data, status){
                 console.log('Error: ' + status + ' ; ' + data);
               });
-    }
+    };
 
     $scope.cancel = function() {
       $modalInstance.dismiss('cancel');
     }
-  })
+  });

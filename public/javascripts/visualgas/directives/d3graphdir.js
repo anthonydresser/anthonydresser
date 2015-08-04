@@ -17,7 +17,7 @@ angular.module('visualGas')
 
           $window.onresize = function() {
             scope.$apply();
-          }
+          };
 
           scope.$watch(function(){
             return angular.element($window)[0].innerWidth;
@@ -117,4 +117,4 @@ angular.module('visualGas')
         });
       }
     };
-  }])
+  }]);
