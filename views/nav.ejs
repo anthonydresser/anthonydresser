@@ -1,15 +1,14 @@
-<nav id="navBar" class="navbar navbar-default transparent navbar-fixed-top">
+<nav ng-controller="navCtrl" id="navBar" class="navbar navbar-default transparent navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-        <span class="sr-only">Toggle navigation</span>
         <i class="fa fa-bars"></i>
       </button>
       <a class="navbar-brand" ui-sref="home"><span style="margin-right: 5px" class="icon-logo"></span><text ng-hide="$root.smallScreen"> Anthony Dresser</text></a>
     </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse">
+    <div id="dropDown" class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
       <ul class="nav navbar-nav navbar-right">
-        <li><a ng-click="" ui-sref="projects">Projects</a></li>
+        <li><a ng-click="navCollapsed = true" ui-sref="projects">Projects</a></li>
       </ul>
     </div>
   </div>

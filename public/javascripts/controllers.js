@@ -1,5 +1,42 @@
 var mainApp = angular.module('mainApp');
 
+mainApp.controller('navCtrl', function($rootScope, $scope){
+  $(document).ready(function(){
+    if($(window).width() <= 768){
+      $('#dropDown').addClass('navDropDown');
+      $rootScope.smallScreen = true;
+    } else {
+      $('#dropDown').removeClass('navDropDown');
+      $rootScope.smallScreen = false;
+    }
+  });
+
+  $(window).resize(function(){
+    if($(window).width() <= 768){
+      if(!$scope.scrolled)  $('#dropDown').addClass('navDropDown');
+      $rootScope.smallScreen = true;
+    } else {
+      $('#dropDown').removeClass('navDropDown');
+      $rootScope.smallScreen = false;
+    }
+  });
+
+  $(document).on('scroll', function(){
+    console.log('scroll');
+    console.log($(document).scrollTop());
+    console.log($('#mainJumbotron').outerHeight() - $('#navBar').outerHeight());
+    if($(document).scrollTop() > $('#mainJumbotron').outerHeight() - $('#navBar').outerHeight()){
+      $scope.scrolled = true;
+      $('#navBar').removeClass('transparent');
+      if($rootScope.smallScreen)  $('#dropDown').removeClass('navDropDown');
+    } else {
+      $scope.scrolled = false;
+      $('#navBar').addClass('transparent');
+      if($rootScope.smallScreen)  $('#dropDown').addClass('navDropDown');
+    }
+  });
+});
+
 mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects){
 
   console.log(projects);
@@ -34,12 +71,8 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
     }
     if($(window).width() <= 768){
       $('#carousel').css('margin-left', '-15px');
-      $('#navBar').removeClass('transparent');
-      $rootScope.smallScreen = true;
     } else {
       $('#carousel').css('margin-left','0px');
-      $('#navBar').addClass('transparent');
-      $rootScope.smallScreen = false;
     }
   });
 
@@ -54,12 +87,8 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
   $(window).resize(function(){
     if($(window).width() <= 768){
       $('#carousel').css('margin-left', '-15px');
-      $('#navBar').removeClass('transparent');
-      $rootScope.smallScreen = true;
     } else {
       $('#carousel').css('margin-left', '0px');
-      $('#navBar').addClass('transparent');
-      $rootScope.smallScreen = false;
     }
   });
 });

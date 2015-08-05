@@ -22,18 +22,14 @@
       <h2 class="text-center">Recent work</h2>
       <div class="row">
         <div ng-repeat="project in recentProjects" class="col-md-4">
-          <div>
-            <img class="img-responsive" ng-src="{{project.image}}">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div ng-repeat="project in recentProjects" class="col-md-4">
           <div class="text-center">
             <h3>{{project.name}}</h3>
           </div>
           <div class="text-center">
-            {{project.short}}
+            <p>{{project.short}}</p>
+          </div>
+          <div>
+            <img class="img-responsive" ng-src="{{project.image}}">
           </div>
         </div>
       </div>
