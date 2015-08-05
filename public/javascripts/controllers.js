@@ -36,7 +36,6 @@ mainApp.controller('navCtrl', function($rootScope, $scope){
     }
   });
 });
-
 mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects){
 
   console.log(projects);
@@ -57,7 +56,6 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
                    {text: 'Arduino'},
                    {text: 'Raspberry Pi'},
                    {text: 'Bootstrap'}];
-  var didScroll = false;
 
   $(document).ready(function(){
     var max = 8;
