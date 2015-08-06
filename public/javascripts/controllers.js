@@ -1,7 +1,7 @@
 var mainApp = angular.module('mainApp');
 
 mainApp.controller('navCtrl', function($rootScope, $scope){
-  $(document).ready(function(){
+  angular.element(document).ready(function(){
     if($(window).width() <= 768){
       $('#dropDown').addClass('navDropDown');
       $rootScope.smallScreen = true;
@@ -57,7 +57,7 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
                    {text: 'Raspberry Pi'},
                    {text: 'Bootstrap'}];
 
-  $(document).ready(function(){
+  angular.element(document).ready(function(){
     var max = 8;
     var min = 1;
     var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -92,7 +92,7 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
 });
 
 mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $location){
-  $(document).ready(function(){
+  angular.element(document).ready(function(){
     if($(window).outerWidth() <= 992){
       $('#rightCol').hide();
     } else {

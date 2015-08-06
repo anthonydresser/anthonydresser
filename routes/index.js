@@ -6,12 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('template', { title: 'Anthony Dresser' });
 });
 
-router.get('/projects', function(req, res, next) {
-  res.render('projects');
-});
-
-router.get('/home', function(req, res, next){
-  res.render('home');
+router.get('/partials/:filename', function(req, res, next){
+  res.render('./partials/' + req.params.filename);
 });
 
 module.exports = router;

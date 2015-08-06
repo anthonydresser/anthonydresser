@@ -41,6 +41,10 @@ app.use('/api', mainApiRoutes);
 app.use('/visualgas', visualgasRoutes);
 app.use('/visualgas/api', visualgasApiRoutes);
 
+app.use('/*', function(req, res, next){
+  res.render('template', { title : 'Anthony Dresser' })
+})
+
 var connect = function() {
   mongoose.connect(credentials.dburl);
 };

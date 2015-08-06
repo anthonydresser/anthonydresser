@@ -11,7 +11,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
   $stateProvider
     .state('home', {
       url: '/home',
-      templateUrl : 'home',
+      templateUrl : '/partials/home',
       controller: 'homeCtrl',
       resolve: {
         projects: function($http, api){
@@ -21,7 +21,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
     })
     .state('projects', {
       url: '/projects',
-      templateUrl : 'projects',
+      templateUrl : '/partials/projects',
       controller: 'projectsCtrl',
       resolve: {
         projects: function($http, api){
