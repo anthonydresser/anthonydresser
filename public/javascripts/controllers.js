@@ -2,7 +2,7 @@ var mainApp = angular.module('mainApp');
 
 mainApp.controller('navCtrl', function($rootScope, $scope){
   angular.element(document).ready(function(){
-    if($(window).width() <= 768){
+    if($(window).width() <= 766){
       $('#dropDown').addClass('navDropDown');
       $rootScope.smallScreen = true;
     } else {
@@ -12,7 +12,7 @@ mainApp.controller('navCtrl', function($rootScope, $scope){
   });
 
   $(window).resize(function(){
-    if($(window).width() <= 768){
+    if($(window).width() <= 766){
       if(!$scope.scrolled)  $('#dropDown').addClass('navDropDown');
       $rootScope.smallScreen = true;
     } else {
