@@ -36,11 +36,11 @@ mainApp.controller('navCtrl', function($rootScope, $scope){
     }
   });
 });
-mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects){
 
-  console.log(projects);
+mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects, backgroundImage){
+
   $scope.recentProjects = projects.data.slice(0,3);
-  console.log($scope.recentProjects);
+  console.log('background image', backgroundImage);
 
   $scope.interval = 2500;
   $scope.slides = [{text: 'Javascript'},
@@ -58,14 +58,11 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
                    {text: 'Bootstrap'}];
 
   angular.element(document).ready(function(){
-    var max = 8;
-    var min = 1;
-    var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    $('#mainJumbotron').css('background-image', 'url("/images/front_' + ranNum + '.png")');
-    if(ranNum === 1){
-      $('#credit').hide();
-    } else {
+    $('#mainJumbotron').css('background-image', 'url(' + backgroundImage.img + ')');
+    if(backgroundImage.credit){
       $('#credit').show();
+    } else {
+      $('#credit').hide();
     }
     if($(window).width() <= 768){
       $('#carousel').css('margin-left', '-15px');
