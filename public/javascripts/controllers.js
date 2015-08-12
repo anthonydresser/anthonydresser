@@ -22,9 +22,6 @@ mainApp.controller('navCtrl', function($rootScope, $scope){
   });
 
   $(document).on('scroll', function(){
-    console.log('scroll');
-    console.log($(document).scrollTop());
-    console.log($('#mainJumbotron').outerHeight() - $('#navBar').outerHeight());
     if($(document).scrollTop() > $('#mainJumbotron').outerHeight() - $('#navBar').outerHeight()){
       $scope.scrolled = true;
       $('#navBar').removeClass('transparent');
@@ -40,7 +37,6 @@ mainApp.controller('navCtrl', function($rootScope, $scope){
 mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects, backgroundImage){
 
   $scope.recentProjects = projects.data.slice(0,3);
-  console.log('background image', backgroundImage);
 
   $scope.interval = 2500;
   $scope.slides = [{text: 'Javascript'},
@@ -114,10 +110,8 @@ mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $lo
     project.dateString = dateString.toLocaleDateString();
     project.date = new Date(project.published);
   });
-  console.log($scope.projects);
   var max = projects.data.length - 1;
   var min = 0;
   var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(ranNum);
   $scope.main = projects.data[ranNum];
 });

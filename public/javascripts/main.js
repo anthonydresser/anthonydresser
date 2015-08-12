@@ -21,9 +21,21 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
           var max = 8;
           var min = 1;
           var deferred = $q.defer();
+          var reso = window.screen.availWidth
+          var size = '';
+          if(reso > 2500){
+            size = 'xl';
+          } else if(reso > 1900){
+            size = 'l';
+          } else if(reso > 1000) {
+            size = 'm';
+          } else {
+            size = 's';
+          }
+
           var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
           var img = new Image();
-          img.src = '/images/front_' + ranNum + '.png';
+          img.src = '/images/front_' + ranNum + '_' + size + '.png';
 
           if(img.completed){
             deferred.resolve({img: img.src,
