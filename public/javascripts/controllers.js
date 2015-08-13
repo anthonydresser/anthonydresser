@@ -1,37 +1,6 @@
 var mainApp = angular.module('mainApp');
 
 mainApp.controller('navCtrl', function($rootScope, $scope){
-  angular.element(document).ready(function(){
-    if($(window).width() <= 766){
-      $('#dropDown').addClass('navDropDown');
-      $rootScope.smallScreen = true;
-    } else {
-      $('#dropDown').removeClass('navDropDown');
-      $rootScope.smallScreen = false;
-    }
-  });
-
-  $(window).resize(function(){
-    if($(window).width() <= 766){
-      if(!$scope.scrolled)  $('#dropDown').addClass('navDropDown');
-      $rootScope.smallScreen = true;
-    } else {
-      $('#dropDown').removeClass('navDropDown');
-      $rootScope.smallScreen = false;
-    }
-  });
-
-  $(document).on('scroll', function(){
-    if($(document).scrollTop() > $('#mainJumbotron').outerHeight() - $('#navBar').outerHeight()){
-      $scope.scrolled = true;
-      $('#navBar').removeClass('transparent');
-      if($rootScope.smallScreen)  $('#dropDown').removeClass('navDropDown');
-    } else {
-      $scope.scrolled = false;
-      $('#navBar').addClass('transparent');
-      if($rootScope.smallScreen)  $('#dropDown').addClass('navDropDown');
-    }
-  });
 });
 
 mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, projects, backgroundImage){
@@ -39,19 +8,63 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
   $scope.recentProjects = projects.data.slice(0,3);
 
   $scope.interval = 2500;
-  $scope.slides = [{text: 'Javascript'},
-                   {text: 'C'},
-                   {text: 'C++'},
-                   {text: 'HTML'},
-                   {text: 'Angular'},
-                   {text: 'Verilog'},
-                   {text: 'Android'},
-                   {text: 'NodeJS'},
-                   {text: 'Java'},
-                   {text: 'Github'},
-                   {text: 'Arduino'},
-                   {text: 'Raspberry Pi'},
-                   {text: 'Bootstrap'}];
+  $scope.slides = [
+    {
+      text: 'Javascript',
+      link: 'JavaScript'
+    },
+    {
+      text: 'C',
+      link: 'C'
+    },
+    {
+      text: 'C++',
+      link: 'C++'
+    },
+    {
+      text: 'HTML',
+      link: 'HTML'
+    },
+    {
+      text: 'AngularJS',
+      link: 'AngularJS'
+    },
+    {
+      text: 'Verilog',
+      link: ''
+    },
+    {
+      text: 'Android',
+      link: ''
+    },
+    {
+      text: 'NodeJS',
+      link: ''
+    },
+    {
+      text: 'Java',
+      link: ''
+    },
+    {
+      text: 'Github',
+      link: ''
+    },
+    {
+      text: 'Arduino',
+      link: ''
+    },
+    {
+      text: 'Raspberry Pi',
+      link: ''
+    },
+    {
+      text: 'Bootstrap',
+      link: ''
+    },
+    {
+      text: 'PCB Design',
+      link: ''
+    }];
 
   angular.element(document).ready(function(){
     $('#mainJumbotron').css('background-image', 'url(' + backgroundImage.img + ')');
@@ -84,7 +97,12 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
   });
 });
 
-mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $location){
+mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $location, $stateParams){
+
+  if($stateParams.filterBy){
+    $scope.tagSearch = $stateParams.filterBy;
+  }
+
   angular.element(document).ready(function(){
     if($(window).outerWidth() <= 992){
       $('#rightCol').hide();
@@ -95,7 +113,7 @@ mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $lo
 
   $(window).resize(function(){
     if($(window).outerWidth() <= 992){
-        $('#rightCol').hide();
+      $('#rightCol').hide();
     } else {
       $('#rightCol').show();
     }

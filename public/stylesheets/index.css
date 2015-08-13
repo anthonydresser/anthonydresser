@@ -2,9 +2,14 @@
   color: #0047B2;
 }
 
-.navDropDown {
-  background-color: rgba(0, 0, 0, 0.8);
+.navbar {
+  position: absolute;
 }
+
+.navDropDown {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 .navbar-default.transparent .navbar-brand {
 	color: white;
 }
@@ -61,6 +66,12 @@
     top:70px;
     width:228px;
   }
+}
+
+
+
+h3:hover {
+  text-decoration: none;
 }
 
 article img {

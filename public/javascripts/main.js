@@ -57,7 +57,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
       }
     })
     .state('projects', {
-      url: '/projects',
+      url: '/projects?filterBy',
       templateUrl : '/partials/projects',
       controller: 'projectsCtrl',
       resolve: {
