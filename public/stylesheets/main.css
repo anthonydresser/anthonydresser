@@ -20,6 +20,10 @@
   background-color: white;
 }
 
+.navbar {
+  position: absolute;
+}
+
 .navbar-default .navbar-nav>li>a {
   color: #0047B2;
 }
