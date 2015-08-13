@@ -70,11 +70,7 @@ mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $lo
     $location.hash(id);
     $anchorScroll();
   };
-
-  if($stateParams['#']){
-    $scope.scrollTo($stateParams['#'])
-  }
-
+  
   angular.element(document).ready(function(){
     if($(window).outerWidth() <= 992){
       $('#rightCol').hide();
