@@ -48,6 +48,8 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
 
 mainApp.controller('projectsCtrl', function($scope, projects, $anchorScroll, $location, $stateParams){
 
+  $scope.Math = window.Math;
+
   if($stateParams.filterBy){
     $scope.tagSearch = $stateParams.filterBy;
   }
@@ -92,8 +94,23 @@ mainApp.controller('aboutmeCtrl', function($scope, backgroundImage){
 })
 
 mainApp.controller('gw2Ctrl', function($scope, $http, $q){
+
+  Number.prototype.truncate = function(){
+    if(this > 0){
+      return Math.floor(this);
+    } else if(this < 0){
+      return Math.ceil(this);
+    } else {
+      return this;
+    }
+  }
+
+  $scope.Math = window.Math;
   $scope.historyTransactions = [];
   $scope.currentTransactions = [];
+  $scope.totalMarketInvestment = 0;
+  $scope.totalPendingSales = 0;
+  $scope.totalProfitLoss = 0;
 
   var deferred1 = $q.defer();
   var deferred2 = $q.defer();
@@ -118,9 +135,9 @@ mainApp.controller('gw2Ctrl', function($scope, $http, $q){
     var totalMarketInvestment = 0;
     angular.forEach($scope.currentTransactions, function(transaction){
       if(transaction.sells){
-        totalPendingSales += transaction.sells * transaction.price;
+        totalPendingSales += transaction.totalPrice;
       } else if(transaction.buys){
-        totalMarketInvestment += transaction.buys * transaction.price;
+        totalMarketInvestment += Math.abs(transaction.totalPrice);
       }
     });
     angular.forEach($scope.historyTransactions, function(transaction){
@@ -151,10 +168,12 @@ mainApp.controller('gw2Ctrl', function($scope, $http, $q){
     return $q.all([sellsDeferred, buysDeferred]).then(function(){
       angular.forEach(buys, function(buy){
         buy.buys = buy.quantity;
+        buy.totalPrice = (buy.quantity * buy.price);
       });
 
       angular.forEach(sells, function(sell){
         sell.sells = sell.quantity;
+        sell.totalPrice = Math.floor(sell.price *.85) * sell.quantity;
       })
 
       transactions = buys.concat(sells);
@@ -195,10 +214,12 @@ mainApp.controller('gw2Ctrl', function($scope, $http, $q){
     return $q.all([sellsDefered, buysDefered]).then(function() {
       angular.forEach(buys, function(buy){
         buy.buys = buy.quantity;
+        buy.totalPrice = (buy.quantity * buy.price);
       });
 
       angular.forEach(sells, function(sell){
         sell.sells = sell.quantity;
+        sell.totalPrice = Math.floor(sell.price * .85) * sell.quantity;
       })
 
       transactions = buys.concat(sells);
@@ -279,7 +300,7 @@ mainApp.controller('gw2Ctrl', function($scope, $http, $q){
           totalBought += buy.quantity;
         })
         angular.forEach(transaction.sold, function(sold){
-          totalPrice += Math.round(sold.price *.85) * sold.quantity;
+          totalPrice += Math.floor(sold.price *.85) * sold.quantity;
           totalSold += sold.quantity;
         })
         transaction.totalPrice = totalPrice;

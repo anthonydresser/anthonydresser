@@ -2,13 +2,13 @@
     <table style="width: 100%">
         <tr>
             <td>
-                Total Profit/Loss: {{totalProfitLoss}}
+                Total Profit/Loss: <span ng-show="Math.floor(totalProfitLoss/10000) != 0">{{Math.floor(totalProfitLoss/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(totalProfitLoss/100) % 100}}<img src="/images/silver-img.png">{{totalProfitLoss % 100}}<img src="images/silver-img.png">
             </td>
             <td>
-                Market Investment: {{totalMarketInvestment}}
+                Market Investment: <span ng-show="Math.floor(totalMarketInvestment/10000) != 0">{{Math.floor(totalMarketInvestment/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(totalMarketInvestment/100) % 100}}<img src="/images/silver-img.png">{{totalMarketInvestment % 100}}<img src="images/silver-img.png">
             </td>
             <td>
-                Sale Pending: {{totalPendingSales}}
+                Sales Pending: <span ng-show="Math.floor(totalPendingSales/10000) != 0">{{Math.floor(totalPendingSales/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(totalPendingSales/100) % 100}}<img src="/images/silver-img.png">{{totalPendingSales % 100}}<img src="images/silver-img.png">
             </td>
         </tr>
     </table>
@@ -45,10 +45,10 @@
                 {{transaction.sells}}
             </td>
             <td>
-                {{transaction.price}}
+                <span ng-show="Math.floor(transaction.price/10000) != 0">{{Math.floor(transaction.price/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(transaction.price/100) % 100}}<img src="/images/silver-img.png">{{transaction.price % 100}}<img src="/images/copper.png">
             </td>
             <td>
-                {{(transaction.sells - transaction.buys) * transaction.price}}
+                <span ng-show="Math.floor(transaction.totalPrice/10000) != 0">{{Math.floor(transaction.totalPrice/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(transaction.totalPrice/100) % 100}}<img src="/images/silver-img.png">{{transaction.totalPrice % 100}}<img src="/images/copper.png">
             </td>
         </tr>
     </table>
@@ -89,10 +89,10 @@
                 {{transaction.sells}}
             </td>
             <td>
-                {{transaction.price}}
+                <span ng-show="Math.floor(transaction.price/10000) != 0">{{Math.floor(transaction.price/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(transaction.price/100) % 100}}<img src="/images/silver-img.png">{{transaction.price % 100}}<img src="/images/copper.png">
             </td>
-            <td>
-                {{(transaction.sells - transaction.buys) * transaction.price}}
+            <td >
+                <span ng-show="Math.floor(transaction.totalPrice/10000) != 0">{{Math.floor(transaction.totalPrice/10000) % 100}}<img src="/images/gold.png"></span>{{Math.floor(transaction.totalPrice/100) % 100}}<img src="/images/silver-img.png">{{transaction.totalPrice % 100}}<img src="/images/copper.png">
             </td>
         </tr>
     </table>
@@ -127,7 +127,7 @@
                 {{transaction.totalSold}}
             </td>
             <td class="col-md-3">
-                {{transaction.totalPrice}}
+                <span ng-show="Math.floor((transaction.totalPrice/10000).truncate()) != 0">{{Math.floor((transaction.totalPrice/10000).truncate()) % 100}}<img src="/images/gold.png"></span>{{Math.floor((transaction.totalPrice/100).truncate()) % 100}}<img src="/images/silver-img.png">{{transaction.totalPrice % 100}}<img src="/images/copper.png">
             </td>
         </tr>
     </table>
