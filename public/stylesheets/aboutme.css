@@ -1,0 +1,76 @@
+.navbar-default .navbar-brand {
+    color: #0047B2;
+}
+
+.navDropDown {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.navbar-default.transparent .navbar-brand {
+    color: white;
+}
+
+.navbar-default i {
+    color: #0047B2;
+}
+
+.navbar-default.transparent i {
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #0047B2;
+}
+
+.navbar-default.transparent .navbar-nav>li>a{
+    color: white;
+}
+
+.navbar-default.transparent{
+    background-color: transparent;
+}
+
+.navbar-default {
+    background-color: white;
+}
+
+.jumbotron {
+    position: relative;
+    color: white;
+    height: 60%;
+}
+
+#contact {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.container .jumbotron, .container-fluid .jumbotron {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#credit {
+    position: absolute;
+    bottom: 100px;
+    right: 0px;
+}
+
+h3:hover {
+    text-decoration: none;
+}
+
+#mainJumbotron {
+    background-position: center center;
+    background-size: cover;
+}
+
+/* coursel styling */
+.right.carousel-control, .left.carousel-control {
+    display: none;
+}
+
+.carousel-indicators {
+    display:none;
+}

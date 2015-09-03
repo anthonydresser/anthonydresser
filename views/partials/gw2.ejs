@@ -1,0 +1,134 @@
+<div class="container-fluid" style="margin-top: 50px">
+    <table style="width: 100%">
+        <tr>
+            <td>
+                Total Profit/Loss: {{totalProfitLoss}}
+            </td>
+            <td>
+                Market Investment: {{totalMarketInvestment}}
+            </td>
+            <td>
+                Sale Pending: {{totalPendingSales}}
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%">
+        <tr>
+            Current
+        </tr>
+        <tr>
+            <td class="col-md-3">
+                Name
+            </td>
+            <td class="col-md-3">
+                Amount Buying
+            </td>
+            <td class="col-md-3">
+                Amount Selling
+            </td>
+            <td>
+                Price
+            </td>
+            <td>
+                Total Price
+            </td>
+        </tr>
+        <tr ng-repeat="transaction in currentTransactions">
+            <td class="col-md-3">
+                <img width=40px ng-src="{{transaction.imgUrl}}">
+                <a href="{{'http://www.gw2spidy.com/item/' + transaction['item_id']}}">{{transaction.name}}</a>
+            </td>
+            <td class="col-md-3">
+                {{transaction.buys}}
+            </td>
+            <td class="col-md-3">
+                {{transaction.sells}}
+            </td>
+            <td>
+                {{transaction.price}}
+            </td>
+            <td>
+                {{(transaction.sells - transaction.buys) * transaction.price}}
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%">
+        <tr>Recent</tr>
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                Date
+            </td>
+            <td>
+                Amount Bought
+            </td>
+            <td>
+                Amount Sold
+            </td>
+            <td>
+                Price
+            </td>
+            <td>
+                Total Price
+            </td>
+        </tr>
+        <tr ng-repeat="transaction in recentTransactions">
+            <td>
+                <img width=40px ng-src="{{transaction.imgUrl}}">
+                <a href="{{'http://www.gw2spidy.com/item/' + transaction['item_id']}}">{{transaction.name}}</a>
+            </td>
+            <td>
+                {{transaction.date.toLocaleString()}}
+            </td>
+            <td>
+                {{transaction.buys}}
+            </td>
+            <td>
+                {{transaction.sells}}
+            </td>
+            <td>
+                {{transaction.price}}
+            </td>
+            <td>
+                {{(transaction.sells - transaction.buys) * transaction.price}}
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%">
+
+        <tr>
+            History
+        </tr>
+        <tr>
+            <td class="col-md-3">
+                Name
+            </td>
+            <td class="col-md-3">
+                Amount Purchased
+            </td>
+            <td class="col-md-3">
+                Amount Sold
+            </td>
+            <td class="col-md-3">
+                Total Profit/Loss
+            </td>
+        </tr>
+        <tr ng-repeat="transaction in historyTransactions">
+            <td class="col-md-3">
+                <img width=40px ng-src="{{transaction.imgUrl}}">
+                <a href="{{'http://www.gw2spidy.com/item/' + transaction['item_id']}}">{{transaction.name}}</a>
+            </td>
+            <td class="col-md-3">
+                {{transaction.totalBought}}
+            </td>
+            <td class="col-md-3">
+                {{transaction.totalSold}}
+            </td>
+            <td class="col-md-3">
+                {{transaction.totalPrice}}
+            </td>
+        </tr>
+    </table>
+</div>

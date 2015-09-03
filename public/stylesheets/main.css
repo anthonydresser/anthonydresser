@@ -12,10 +12,6 @@
 	margin-top: 20px;
 }
 
-.contentRow {
-	height: 100%;
-}
-
 .navbar-default {
   background-color: white;
 }
@@ -26,6 +22,25 @@
 
 .navbar-default .navbar-nav>li>a {
   color: #0047B2;
+}
+
+article img {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 979px) {
+  #sidebar.affix-top {
+    position: static;
+    margin-top:30px;
+    width:228px;
+  }
+
+  #sidebar.affix {
+    position: fixed;
+    top:70px;
+    width:228px;
+  }
 }
 
 tag {
@@ -40,22 +55,6 @@ tag {
 
 #tags {
   margin-bottom: 10px;
-}
-
-#contact {
-  position: absolute;
-  bottom: 100px;
-  width: 100%;
-}
-
-.img-responsive {
-  margin: 0 auto;
-}
-
-#credit {
-  position: absolute;
-  bottom: 100px;
-  right: 0px;
 }
 
 .affix-top,.affix{

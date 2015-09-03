@@ -4,16 +4,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Q = require('q');
+var request = require('request');
+var Recipe = require('./models/recipe');
 
 var mainRoutes = require('./routes/index');
 var mainApiRoutes = require('./routes/api');
 var visualgasRoutes = require('./routes/visualgas/index');
 var visualgasApiRoutes = require('./routes/visualgas/api');
+var gw2ApiRoutes = require('./routes/gw2/api');
 var mongoose = require('mongoose');
 var credentials = require('./config/credentials.js');
 var passport = require('passport');
 var session = require('express-session');
 var flash = require('connect-flash');
+
+//add timestamps in front of log messages
+require('console-stamp')(console, '[HH:MM:ss.l]');
 
 var app = express();
 
@@ -37,6 +44,7 @@ app.use(flash());
 require('./config/passport.js')(passport);
 
 app.use('/', mainRoutes);
+app.use('/gw2/api', gw2ApiRoutes);
 app.use('/api', mainApiRoutes);
 app.use('/visualgas', visualgasRoutes);
 app.use('/visualgas/api', visualgasApiRoutes);
@@ -89,6 +97,69 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+//var recipeHolder = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+//request.get('https://api.guildwars2.com/v2/recipes', function(error, response, body){
+//  processData(JSON.parse(body));
+//});
+//
+//function processData(data){
+//  var promiseArray = [];
+//  console.log('Processing data');
+//
+//  data.forEach(function(recipe, index, array){
+//    var deferred = Q.defer();
+//    //if(recipe > x) {
+//      if (promiseArray.length > 0) {
+//        promiseArray[promiseArray.length - 1].then(function () {
+//              var url = 'https://api.guildwars2.com/v2/recipes/' + recipe;
+//              console.log('Starting recipe ', recipe);
+//              request.get(url, function (error, response, body) {
+//                if (error) {
+//                  console.log('Error', error);
+//                }
+//                body = JSON.parse(body);
+//                //if(body.disciplines.indexOf('Weaponsmith') > -1){
+//                //  recipeHolder[Math.floor(body['min_rating']/25)].push(body);
+//                //}
+//                var entry = new Recipe(body);
+//                entry.save(function (err) {
+//                  if (err) {
+//                    console.log('Error', err);
+//                  }
+//                  console.log('finished recipe ' + body.id);
+//                  deferred.resolve();
+//                })
+//              });
+//            }
+//        )
+//        promiseArray.push(deferred.promise);
+//      } else {
+//        var url = 'https://api.guildwars2.com/v2/recipes/' + recipe;
+//        console.log('Starting recipe ', recipe);
+//        request.get(url, function (error, response, body) {
+//          if (error) {
+//            console.log('Error', error);
+//          }
+//          body = JSON.parse(body);
+//          //if(body.disciplines.indexOf('Weaponsmith') > -1){
+//          //  recipeHolder[Math.floor(body['min_rating']/25)].push(body);
+//          //}
+//          var entry = new Recipe(body);
+//          entry.save(function (err) {
+//            if (err) {
+//              console.log('Error', err);
+//            }
+//            console.log('finished recipe ' + body.id);
+//            deferred.resolve();
+//          })
+//        })
+//        promiseArray.push(deferred.promise);
+//      }
+//    //}
+//  })
+//}
+
 
 
 module.exports = app;

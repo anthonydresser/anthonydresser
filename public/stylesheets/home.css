@@ -34,14 +34,8 @@
 	background-color: white;
 }
 
-.jumbotron img {
-  float: right;
-  height: 100%;
-  width: auto;
-}
-
 .jumbotron {
-	position: relative;
+  position: relative;
   color: white;
   height: 60%;
 }
@@ -50,29 +44,20 @@
 	position: static;
 }
 
-@media (min-width: 979px) {
-  #sidebar.affix-top {
-    position: static;
-  	margin-top:30px;
-  	width:228px;
-  }
-
-  #sidebar.affix {
-    position: fixed;
-    top:70px;
-    width:228px;
-  }
+#contact {
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
 }
 
-
+#credit {
+  position: absolute;
+  bottom: 100px;
+  right: 0px;
+}
 
 h3:hover {
   text-decoration: none;
-}
-
-article img {
-  width: 100%;
-  height: auto;
 }
 
 #mainJumbotron {
