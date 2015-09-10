@@ -29,6 +29,10 @@ article img {
   height: auto;
 }
 
+.backgroundRow {
+  background-color: lightgrey;
+}
+
 @media (min-width: 979px) {
   #sidebar.affix-top {
     position: static;

@@ -141,12 +141,7 @@ mainApp.controller('gw2Ctrl', function($scope, $http, $q){
       }
     });
     angular.forEach($scope.historyTransactions, function(transaction){
-      angular.forEach(transaction.bought, function(bought){
-        totalProfitLoss -= bought.price * bought.quantity;
-      });
-      angular.forEach(transaction.sold, function(sold){
-        totalProfitLoss += sold.price * sold.quantity;
-      })
+      totalProfitLoss += transaction.totalPrice;
     })
     $scope.totalProfitLoss = totalProfitLoss;
     $scope.totalPendingSales = totalPendingSales;

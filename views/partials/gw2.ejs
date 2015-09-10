@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-top: 50px">
+<div class="container" style="margin-top: 50px">
     <table style="width: 100%">
         <tr>
             <td>
@@ -17,13 +17,13 @@
             Current
         </tr>
         <tr>
-            <td class="col-md-3">
+            <td>
                 Name
             </td>
-            <td class="col-md-3">
+            <td>
                 Amount Buying
             </td>
-            <td class="col-md-3">
+            <td>
                 Amount Selling
             </td>
             <td>
@@ -33,7 +33,7 @@
                 Total Price
             </td>
         </tr>
-        <tr ng-repeat="transaction in currentTransactions">
+        <tr ng-repeat="transaction in currentTransactions" ng-class-even="'backgroundRow'">
             <td class="col-md-3">
                 <img width=40px ng-src="{{transaction.imgUrl}}">
                 <a href="{{'http://www.gw2spidy.com/item/' + transaction['item_id']}}">{{transaction.name}}</a>
@@ -102,31 +102,31 @@
             History
         </tr>
         <tr>
-            <td class="col-md-3">
+            <td>
                 Name
             </td>
-            <td class="col-md-3">
+            <td>
                 Amount Purchased
             </td>
-            <td class="col-md-3">
+            <td>
                 Amount Sold
             </td>
-            <td class="col-md-3">
+            <td>
                 Total Profit/Loss
             </td>
         </tr>
         <tr ng-repeat="transaction in historyTransactions">
-            <td class="col-md-3">
+            <td>
                 <img width=40px ng-src="{{transaction.imgUrl}}">
                 <a href="{{'http://www.gw2spidy.com/item/' + transaction['item_id']}}">{{transaction.name}}</a>
             </td>
-            <td class="col-md-3">
+            <td>
                 {{transaction.totalBought}}
             </td>
-            <td class="col-md-3">
+            <td>
                 {{transaction.totalSold}}
             </td>
-            <td class="col-md-3">
+            <td>
                 <span ng-show="Math.floor((transaction.totalPrice/10000).truncate()) != 0">{{Math.floor((transaction.totalPrice/10000).truncate()) % 100}}<img src="/images/gold.png"></span>{{Math.floor((transaction.totalPrice/100).truncate()) % 100}}<img src="/images/silver-img.png">{{transaction.totalPrice % 100}}<img src="/images/copper.png">
             </td>
         </tr>
