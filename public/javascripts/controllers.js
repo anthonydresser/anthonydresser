@@ -21,7 +21,8 @@ mainApp.controller('homeCtrl', function($rootScope, $scope, $anchorScroll, proje
                    {text: 'Arduino'},
                    {text: 'Raspberry Pi'},
                    {text: 'Bootstrap'},
-                   {text: 'PCB Design'}];
+                   {text: 'PCB Design'},
+                   {text: 'Python'}];
 
   angular.element(document).ready(function(){
     $('#mainJumbotron').css('background-image', 'url(' + backgroundImage.img + ')');
