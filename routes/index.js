@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   res.render('template', { title: 'Anthony Dresser' });
 });
 router.get('/resume', function(req, res, next){
-  res.send('resources/addresser_resume.pdf');
+  res.sendfile('resources/addresser_resume.pdf');
 })
 
 router.get('/partials/:filename', function(req, res, next){
