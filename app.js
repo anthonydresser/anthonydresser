@@ -16,8 +16,11 @@ var gw2ApiRoutes = require('./routes/gw2/api');
 var mongoose = require('mongoose');
 var credentials = require('./config/credentials.js');
 var passport = require('passport');
-var session = require('express-session');
+var session = require('express-session')({ secret: 'anthonydressersecret', resave: true, saveUninitialized: true });
 var flash = require('connect-flash');
+var sharedsession = require('express-socket.io-session');
+
+var PythonShell = require('python-shell');
 
 //add timestamps in front of log messages
 require('console-stamp')(console, '[HH:MM:ss.l]');
@@ -36,12 +39,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'anthonydressersecret' }));
+app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
 require('./config/passport.js')(passport);
+
+app.use('/', function(req, res, next){
+    console.log('added sessions');
+    req.session.myCustomData = {msg:"add something you need to session, like userID", userID:Math.floor(Math.random()*100)};
+    next();
+});
 
 app.use('/', mainRoutes);
 app.use('/gw2/api', gw2ApiRoutes);
@@ -98,68 +107,108 @@ app.use(function(err, req, res, next) {
   });
 });
 
-//var recipeHolder = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
-//request.get('https://api.guildwars2.com/v2/recipes', function(error, response, body){
-//  processData(JSON.parse(body));
-//});
-//
-//function processData(data){
-//  var promiseArray = [];
-//  console.log('Processing data');
-//
-//  data.forEach(function(recipe, index, array){
-//    var deferred = Q.defer();
-//    //if(recipe > x) {
-//      if (promiseArray.length > 0) {
-//        promiseArray[promiseArray.length - 1].then(function () {
-//              var url = 'https://api.guildwars2.com/v2/recipes/' + recipe;
-//              console.log('Starting recipe ', recipe);
-//              request.get(url, function (error, response, body) {
-//                if (error) {
-//                  console.log('Error', error);
-//                }
-//                body = JSON.parse(body);
-//                //if(body.disciplines.indexOf('Weaponsmith') > -1){
-//                //  recipeHolder[Math.floor(body['min_rating']/25)].push(body);
-//                //}
-//                var entry = new Recipe(body);
-//                entry.save(function (err) {
-//                  if (err) {
-//                    console.log('Error', err);
-//                  }
-//                  console.log('finished recipe ' + body.id);
-//                  deferred.resolve();
-//                })
-//              });
-//            }
-//        )
-//        promiseArray.push(deferred.promise);
-//      } else {
-//        var url = 'https://api.guildwars2.com/v2/recipes/' + recipe;
-//        console.log('Starting recipe ', recipe);
-//        request.get(url, function (error, response, body) {
-//          if (error) {
-//            console.log('Error', error);
-//          }
-//          body = JSON.parse(body);
-//          //if(body.disciplines.indexOf('Weaponsmith') > -1){
-//          //  recipeHolder[Math.floor(body['min_rating']/25)].push(body);
-//          //}
-//          var entry = new Recipe(body);
-//          entry.save(function (err) {
-//            if (err) {
-//              console.log('Error', err);
-//            }
-//            console.log('finished recipe ' + body.id);
-//            deferred.resolve();
-//          })
-//        })
-//        promiseArray.push(deferred.promise);
-//      }
-//    //}
-//  })
-//}
 
+var debug = require('debug')('anthonydresser:server');
+var http = require('http');
 
+/**
+ * Get port from environment and store in Express.
+ */
 
-module.exports = app;
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+io = require('socket.io').listen(server);
+io.use(sharedsession(session));
+io.on('connection', function(socket){
+    console.log("connected");
+    socket.emit("greetings", {msg:"hello"});
+    socket.on("something", function(data){
+        console.log("client["+socket.handshake.session.myCustomData.userID+"] sent data: " + data);
+        var chess = new PythonShell('../resources/connect4.py');
+
+        chess.on('message', function(message){
+            console.log('message', message);
+            socket.emit("move", {msg:message});
+        })
+
+        chess.end(function(err){
+            if(err) throw err;
+            socket.emit('greetings', {msg:'finished'});
+        })
+    })
+});
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}

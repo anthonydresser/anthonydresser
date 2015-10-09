@@ -115,4 +115,9 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         templateUrl: '/partials/gw2',
         controller: 'gw2Ctrl'
       })
+      .state('ai', {
+        url: '/ai',
+        templateUrl: '/partials/ai',
+        controller: 'aiCtrl'
+      })
 });
