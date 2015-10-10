@@ -3,7 +3,7 @@ angular.module('mainApp').directive("drawing", function(){
         restrict: "A",
         link: function(scope, element){
             var ctx = element[0].getContext('2d');
-            var circleSize = 10;
+            var circleSize = 10.25;
 
             //// variable that decides if something should be drawn on mousemove
             //var drawing = false;
@@ -12,16 +12,33 @@ angular.module('mainApp').directive("drawing", function(){
             //var lastX;
             //var lastY;
 
-            scope.drawBoard = function(){
-                for(var j = 0; j < 6; j++){
-                    console.log('j equals', j);
-                    for(var i = 0; i < 7; i++){
-                        console.log('i equals', i);
+            scope.drawBoard = function(x, y){
+                console.log('drawing board',x,y);
+                ctx.clearRect(0, 0, element[0].width, element[0].height);
+                console.log(element[0].width, element[0].width/x, Math.floor(element[0].width/x));
+                circleSize = Math.min(element[0].width/x, element[0].height/y)/2;
+                for(var j = 0; j < y; j++){
+                    for(var i = 0; i < x; i++){
                         ctx.beginPath();
-                        ctx.arc(((i*circleSize)*2)+circleSize,((j*circleSize)*2)+circleSize,circleSize,0,2*Math.PI);
+                        ctx.arc(((i*circleSize)*2)+circleSize, ((j*circleSize)*2)+circleSize,circleSize, 0, 2 * Math.PI);
                         ctx.stroke();
                     }
                 }
+            }
+
+            element.bind('click', function(event){
+                if(scope.finishedFlag != 1) {
+                    var x = Math.floor(event.offsetX / (circleSize * 2));
+                    var y = Math.floor(event.offsetY / (circleSize * 2));
+                    scope.move(x);
+                }
+            })
+
+            scope.finished = function(){
+                scope.finishedFlag = 1;
+                ctx.fillStyle = 'blue';
+                ctx.font = 'bold 24px Arial';
+                ctx.fillText("Game Over!", 100, 100);
             }
 
             scope.addPiece = function(color, x, y){

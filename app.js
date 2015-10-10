@@ -135,21 +135,72 @@ server.on('listening', onListening);
 io = require('socket.io').listen(server);
 io.use(sharedsession(session));
 io.on('connection', function(socket){
+    var chess;
+    var playersTurn = 0;
     console.log("connected");
-    socket.emit("greetings", {msg:"hello"});
-    socket.on("something", function(data){
-        console.log("client["+socket.handshake.session.myCustomData.userID+"] sent data: " + data);
-        var chess = new PythonShell('../resources/connect4.py');
-
+    //socket.on("something", function(data){
+    //    console.log("client["+socket.handshake.session.myCustomData.userID+"] sent data: " + data);
+    //    var chess = new PythonShell('../resources/connect4.py');
+    //
+    //    chess.on('message', function(message){
+    //        console.log('message', message);
+    //        socket.emit("move", {msg:message});
+    //    });
+    //
+    //    chess.end(function(err){
+    //        if(err) throw err;
+    //        socket.emit('greetings', {msg:'finished'});
+    //    });
+    //})
+    socket.on('setup', function(data){
+        var argNum = 0;
+        console.log('data received', data);
+        chess = new PythonShell('../resources/connect4.py');
         chess.on('message', function(message){
-            console.log('message', message);
-            socket.emit("move", {msg:message});
+            switch(argNum){
+                case 0:
+                    if(data.options == 'player') {
+                        chess.send('human');
+                    } else {
+                        chess.send('cpu');
+                    }
+                    argNum++;
+                case 1:
+                    chess.send(data.winLength);
+                    argNum++;
+                case 2:
+                    chess.send(data.y);
+                    argNum++;
+                case 3:
+                    chess.send(data.x);
+                    argNum++;
+                case 4:
+                    chess.send(data.aiTime);
+                    argNum++;
+                case 5:
+                    socket.emit('setup', {done:1, x:data.x, y:data.y});
+                    playersTurn = 1;
+                    argNum++;
+            }
         })
+        chess.on('message', function(message){
+            console.log(message);
+            if(message.indexOf('Adding checker') > -1){
+                socket.emit('move', {msg:message});
+                if(message.indexOf('BLACK') > -1){
+                    playersTurn = 1;
+                }
+            } else if(message.indexOf('won') > -1){
+                socket.emit('finished');
+            }
+        })
+    });
 
-        chess.end(function(err){
-            if(err) throw err;
-            socket.emit('greetings', {msg:'finished'});
-        })
+    socket.on('move', function(data){
+        if(playersTurn){
+            playersTurn = 0;
+            chess.send(data.x.toString());
+        }
     })
 });
 

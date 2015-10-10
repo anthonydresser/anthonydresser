@@ -95,15 +95,10 @@ mainApp.controller('aboutmeCtrl', function($scope, backgroundImage){
 });
 
 mainApp.controller('aiCtrl', function($scope, socket){
-    $scope.recievedTroughSocket = "still waiting for data...";
-    $scope.sendWithSocket = function(msg){
-        $scope.drawBoard();
-        socket.emit("something", msg);
-    }
-    socket.on("greetings", function(data){
-        console.log("user data: " + JSON.stringify(data));
-        $scope.recievedTroughSocket = data.msg;
-    });
+    angular.element(document).ready(function(){
+        var canvas = angular.element(document.querySelector('#canvas'));
+        canvas.attr('width', ($('#canvas-row').width())).attr('height', ($(window).height()));
+    })
     socket.on("move", function(data){
         var parths = data.msg.split("(");
         var color = '';
@@ -117,6 +112,26 @@ mainApp.controller('aiCtrl', function($scope, socket){
         var y = parseInt(objects[2]);
         console.log(parths, objects, color, x, y);
         $scope.addPiece(color, x, y);
+    });
+    $scope.play = function(){
+        console.log('playing');
+        var boardx = $scope.boardSizeX;
+        var boardy = $scope.boardSizeY;
+        var winLength = $scope.winLength;
+        var options = $scope.playOptions;
+        var aiTime = $scope.aiTime;
+        socket.emit('setup', {x: boardx, y:boardy, winLength: winLength, options:options, aiTime:aiTime});
+    }
+    socket.on('setup', function(data){
+        if(data.done == 1){
+            $scope.drawBoard(data.x, data.y);
+        }
+    })
+    $scope.move = function(x){
+        socket.emit('move', {x:x});
+    }
+    socket.on('finished', function(data){
+        $scope.finished();
     })
 });
 
