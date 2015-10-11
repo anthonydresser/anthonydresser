@@ -191,6 +191,7 @@ io.on('connection', function(socket){
             } else if(message.indexOf('won') > -1){
                 socket.emit('finished');
             } else {
+                console.log(message);
                 socket.emit('message', message);
             }
         })
