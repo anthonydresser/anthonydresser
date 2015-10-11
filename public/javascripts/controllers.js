@@ -95,6 +95,11 @@ mainApp.controller('aboutmeCtrl', function($scope, backgroundImage){
 });
 
 mainApp.controller('aiCtrl', function($scope, socket){
+    $scope.boardSizeX = "7";
+    $scope.boardSizeY = "6";
+    $scope.winLength = "4";
+    $scope.playOptions = "player";
+    $scope.aiTime = "1";
     angular.element(document).ready(function(){
         var canvas = angular.element(document.querySelector('#canvas'));
         canvas.attr('width', ($('#canvas-row').width())).attr('height', ($(window).height()));
