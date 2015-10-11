@@ -157,41 +157,41 @@ io.on('connection', function(socket){
         console.log('data received', data);
         chess = new PythonShell('../resources/connect4.py');
         chess.on('message', function(message){
-            switch(argNum){
-                case 0:
-                    if(data.options == 'player') {
-                        chess.send('human');
-                    } else {
-                        chess.send('cpu');
-                    }
-                    argNum++;
-                case 1:
-                    chess.send(data.winLength);
-                    argNum++;
-                case 2:
-                    chess.send(data.y);
-                    argNum++;
-                case 3:
-                    chess.send(data.x);
-                    argNum++;
-                case 4:
-                    chess.send(data.aiTime);
-                    argNum++;
-                case 5:
-                    socket.emit('setup', {done:1, x:data.x, y:data.y});
-                    playersTurn = 1;
-                    argNum++;
-            }
-        })
-        chess.on('message', function(message){
-            console.log(message);
-            if(message.indexOf('Adding checker') > -1){
+            if(argNum < 6) {
+                switch (argNum) {
+                    case 0:
+                        if (data.options == 'player') {
+                            chess.send('human');
+                        } else {
+                            chess.send('cpu');
+                        }
+                        argNum++;
+                    case 1:
+                        chess.send(data.winLength);
+                        argNum++;
+                    case 2:
+                        chess.send(data.y);
+                        argNum++;
+                    case 3:
+                        chess.send(data.x);
+                        argNum++;
+                    case 4:
+                        chess.send(data.aiTime);
+                        argNum++;
+                    case 5:
+                        socket.emit('setup', {done: 1, x: data.x, y: data.y});
+                        playersTurn = 1;
+                        argNum++;
+                }
+            } else if(message.indexOf('Adding checker') > -1){
                 socket.emit('move', {msg:message});
                 if(message.indexOf('BLACK') > -1){
                     playersTurn = 1;
                 }
             } else if(message.indexOf('won') > -1){
                 socket.emit('finished');
+            } else {
+                socket.emit('message', message);
             }
         })
     });

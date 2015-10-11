@@ -133,6 +133,9 @@ mainApp.controller('aiCtrl', function($scope, socket){
     socket.on('finished', function(data){
         $scope.finished();
     })
+    socket.on('message', function(data){
+        console.log(data);
+    })
 });
 
 mainApp.controller('gw2Ctrl', function($scope, $http, $q){
