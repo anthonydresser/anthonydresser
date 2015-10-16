@@ -145,20 +145,6 @@ io.on('connection', function(socket){
     var chess;
     var playersTurn = 0;
     console.log("connected");
-    //socket.on("something", function(data){
-    //    console.log("client["+socket.handshake.session.myCustomData.userID+"] sent data: " + data);
-    //    var chess = new PythonShell('../resources/connect4.py');
-    //
-    //    chess.on('message', function(message){
-    //        console.log('message', message);
-    //        socket.emit("move", {msg:message});
-    //    });
-    //
-    //    chess.end(function(err){
-    //        if(err) throw err;
-    //        socket.emit('greetings', {msg:'finished'});
-    //    });
-    //})
     socket.on('setup', function(data){
         var argNum = 0;
         console.log('data received', data);
@@ -201,7 +187,6 @@ io.on('connection', function(socket){
             } else if(message.indexOf('won') > -1){
                 socket.emit('finished');
             } else {
-                console.log(message);
                 socket.emit('message', message);
             }
         })
