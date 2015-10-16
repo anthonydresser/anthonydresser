@@ -38,6 +38,7 @@
                     <label for="aiTime">AI Turn Time</label>
                     <input style="width: 100px;"  type="number" ng-model="aiTime" id="aiTime" class="form-control">
                     Seconds
+                    <div ng-show="numberError" class="alert alert-danger" role="alert">Pick a correct Value</div>
                 </div>
                 <div class="form-group form-inline">
                     <label for="aiV">AI Version</label>

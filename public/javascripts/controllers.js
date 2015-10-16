@@ -101,7 +101,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
     $scope.playOptions = "player";
     $scope.aiTime = "1";
     $scope.aiV = "v1"
-    $scope.numberFail = 0
+    $scope.numberError = 0
     angular.element(document).ready(function(){
         var canvas = angular.element(document.querySelector('#canvas'));
         canvas.attr('width', ($('#canvas-row').width())).attr('height', ($(window).height()));
@@ -121,13 +121,18 @@ mainApp.controller('aiCtrl', function($scope, socket){
         $scope.addPiece(color, x, y);
     });
     $scope.play = function(){
-        var boardx = $scope.boardSizeX;
-        var boardy = $scope.boardSizeY;
-        var winLength = $scope.winLength;
-        var options = $scope.playOptions;
-        var aiTime = $scope.aiTime;
-        var aiV = $scope.aiV;
-        socket.emit('setup', {x: boardx, y:boardy, winLength: winLength, options:options, aiTime:aiTime, aiV:aiV});
+        if($scope.aiV < 1){
+            $scope.numberError = 1;
+        } else {
+            $scope.numberError = 0;
+            var boardx = $scope.boardSizeX;
+            var boardy = $scope.boardSizeY;
+            var winLength = $scope.winLength;
+            var options = $scope.playOptions;
+            var aiTime = $scope.aiTime;
+            var aiV = $scope.aiV;
+            socket.emit('setup', {x: boardx, y:boardy, winLength: winLength, options:options, aiTime:aiTime, aiV:aiV});
+        }
     }
     socket.on('setup', function(data){
         if(data.done == 1){
