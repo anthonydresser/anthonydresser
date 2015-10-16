@@ -5,79 +5,88 @@
             <canvas id="canvas" drawing></canvas>
         </div>
         <div class="col-md-3">
-            <form novalidate>
-                <div class="form-group form-inline">
-                    <label for="boardSize">Board Size</label>
-                    <select ng-model="boardSizeX" id="boardSize" class="form-control">
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                    </select>
-                    x
-                    <select ng-model="boardSizeY" id="boardSize" class="form-control">
-                        <option>4</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                        <option>9</option>
-                    </select>
+            <div class="row">
+                <div class="col-md-12">
+                    <form novalidate>
+                        <div class="form-group form-inline">
+                            <label for="boardSize">Board Size</label>
+                            <select ng-model="boardSizeX" id="boardSize" class="form-control">
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                            </select>
+                            x
+                            <select ng-model="boardSizeY" id="boardSize" class="form-control">
+                                <option>4</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="winLength">Win Length</label>
+                            <select ng-model="winLength" id="winLength" class="form-control">
+                                <!--<option>1</option>-->
+                                <!--<option>2</option>-->
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="aiTime">AI Turn Time</label>
+                            <input style="width: 100px;" string-to-number type="number" ng-model="aiTime" id="aiTime" class="form-control">
+                            Seconds
+                            <div ng-show="numberError" class="alert alert-danger" role="alert">Pick a correct Value</div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="aiV">AI Version</label>
+                            <label class="radio-inline">
+                                <input ng-model="aiV" type="radio" id="aiV" name="aiV" value="v1"> V1
+                            </label>
+                            <label class="radio-inline">
+                                <input ng-model="aiV" type="radio" id="aiV" name="aiV" value="v2"> V2
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Play Options</label>
+                            <label class="radio-inline">
+                                <input ng-model="playOptions" type="radio" id="playOptions" name="playOptions" value="ai"> AI vs AI
+                            </label>
+                            <label class="radio-inline">
+                                <input checked="checked" ng-model="playOptions" type="radio" id="playOptions" name="playOptions" value="player"> Player vs AI
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Who Goes First</label>
+                            <p>currently has no affect</p>
+                            <label class="radio-inline">
+                                <input ng-model="first" type="radio" id="first" name="first" value="p1"> P1 (you)
+                            </label>
+                            <label class="radio-inline">
+                                <input ng-model="first" type="radio" id="first" name="first" value="p2"> P2 (ai)
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" ng-click="play()" class="btn btn-default">Play!</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group form-inline">
-                    <label for="winLength">Win Length</label>
-                    <select ng-model="winLength" id="winLength" class="form-control">
-                        <!--<option>1</option>-->
-                        <!--<option>2</option>-->
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                    </select>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea disabled ng-model="messages"></textarea>
                 </div>
-                <div class="form-group form-inline">
-                    <label for="aiTime">AI Turn Time</label>
-                    <input style="width: 100px;" string-to-number type="number" ng-model="aiTime" id="aiTime" class="form-control">
-                    Seconds
-                    <div ng-show="numberError" class="alert alert-danger" role="alert">Pick a correct Value</div>
-                </div>
-                <div class="form-group form-inline">
-                    <label for="aiV">AI Version</label>
-                    <label class="radio-inline">
-                        <input ng-model="aiV" type="radio" id="aiV" name="aiV" value="v1"> V1
-                    </label>
-                    <label class="radio-inline">
-                        <input ng-model="aiV" type="radio" id="aiV" name="aiV" value="v2"> V2
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label>Play Options</label>
-                    <label class="radio-inline">
-                        <input ng-model="playOptions" type="radio" id="playOptions" name="playOptions" value="ai"> AI vs AI
-                    </label>
-                    <label class="radio-inline">
-                        <input checked="checked" ng-model="playOptions" type="radio" id="playOptions" name="playOptions" value="player"> Player vs AI
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label>Who Goes First</label>
-                    <p>currently has no affect</p>
-                    <label class="radio-inline">
-                        <input ng-model="first" type="radio" id="first" name="first" value="p1"> P1 (you)
-                    </label>
-                    <label class="radio-inline">
-                        <input ng-model="first" type="radio" id="first" name="first" value="p2"> P2 (ai)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <button type="submit" ng-click="play()" class="btn btn-default">Play!</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -148,7 +148,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
         $scope.finished();
     })
     socket.on('message', function(data){
-        console.log(data);
+        $scope.messages += data;
     })
 });
 
