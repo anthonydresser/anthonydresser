@@ -101,6 +101,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
     $scope.playOptions = "player";
     $scope.aiTime = "1";
     $scope.aiV = "v1"
+    $scope.numberFail = 0
     angular.element(document).ready(function(){
         var canvas = angular.element(document.querySelector('#canvas'));
         canvas.attr('width', ($('#canvas-row').width())).attr('height', ($(window).height()));
@@ -120,7 +121,6 @@ mainApp.controller('aiCtrl', function($scope, socket){
         $scope.addPiece(color, x, y);
     });
     $scope.play = function(){
-        console.log('playing');
         var boardx = $scope.boardSizeX;
         var boardy = $scope.boardSizeY;
         var winLength = $scope.winLength;
