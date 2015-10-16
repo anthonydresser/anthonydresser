@@ -192,6 +192,15 @@ io.on('connection', function(socket){
         })
     });
 
+    socket.on('disconnect', function(){
+        chess.end(function(err){
+            if(err){
+                console.log('error closing python shell', err)
+            }
+            console.log('closed python sessions')
+        })
+    })
+
     socket.on('move', function(data){
         if(playersTurn){
             playersTurn = 0;
