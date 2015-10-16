@@ -16,9 +16,13 @@ var gw2ApiRoutes = require('./routes/gw2/api');
 var mongoose = require('mongoose');
 var credentials = require('./config/credentials.js');
 var passport = require('passport');
-var session = require('express-session')({ secret: 'anthonydressersecret', resave: true, saveUninitialized: true });
 var flash = require('connect-flash');
-var sharedsession = require('express-socket.io-session');
+//var sharedsession = require('express-socket.io-session');
+//var redis = require("redis"),
+//    client = redis.createClient(credentials.redisURL, {no_ready_check: true});
+//var RedisStore = require('connect-redis')(express);
+//var sessionStore = new RedisStore({ client: client});
+var session = require('express-session')({ secret: 'anthonydressersecret', resave: true, saveUninitialized: true });
 
 var PythonShell = require('python-shell');
 
@@ -133,7 +137,10 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 io = require('socket.io').listen(server);
-io.use(sharedsession(session));
+var redissess = require('socket.io-redis');
+var redis = require('redis');
+var client = redis.createClient(credentials.redisURL, {no_ready_check: true});
+io.adapter(redissess({pubClient:client, subClient:client}));
 io.on('connection', function(socket){
     var chess;
     var playersTurn = 0;
