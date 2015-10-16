@@ -3,7 +3,7 @@
  */
 angular.module('mainApp')
     .factory('socket', ['$rootScope', function ($rootScope) {
-    var socket = io.connect();
+    var socket = io.connect({reconnection: false});
     console.log("socket created");
 
     return {
