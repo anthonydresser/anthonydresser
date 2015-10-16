@@ -121,7 +121,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
         $scope.addPiece(color, x, y);
     });
     $scope.play = function(){
-        if($scope.aiV < 1){
+        if($scope.aiTime < 1){
             $scope.numberError = 1;
         } else {
             $scope.numberError = 0;
