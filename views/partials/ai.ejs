@@ -5,7 +5,7 @@
             <canvas id="canvas" drawing></canvas>
         </div>
         <div class="col-md-3">
-            <div class="row">
+            <div id="form" class="row">
                 <div class="col-md-12">
                     <form novalidate>
                         <div class="form-group form-inline">
@@ -84,7 +84,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <textarea disabled ng-model="messages"></textarea>
+                    <textarea style="resize:none" id="messages" disabled ng-model="messages"></textarea>
                 </div>
             </div>
         </div>

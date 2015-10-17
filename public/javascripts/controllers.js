@@ -100,12 +100,15 @@ mainApp.controller('aiCtrl', function($scope, socket){
     $scope.winLength = "4";
     $scope.playOptions = "player";
     $scope.aiTime = "1";
-    $scope.aiV = "v1"
-    $scope.numberError = 0
-    $scope.first = 'p1'
+    $scope.aiV = "v1";
+    $scope.numberError = 0;
+    $scope.first = 'p1';
+    $scope.messages = '';
     angular.element(document).ready(function(){
         var canvas = angular.element(document.querySelector('#canvas'));
         canvas.attr('width', ($('#canvas-row').width())).attr('height', ($(window).height()));
+        var messages = angular.element(document.querySelector('#messages'));
+        messages.css('width', $('#form').width()).css('height', $(window).height() - $('#form').height() - $('#navBar').height());
     })
     socket.on("move", function(data){
         var parths = data.msg.split("(");
@@ -148,7 +151,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
         $scope.finished();
     })
     socket.on('message', function(data){
-        $scope.messages += data;
+        $scope.messages += data + '\n';
     })
 });
 

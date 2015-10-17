@@ -186,15 +186,17 @@ io.on('connection', function(socket){
                 }
             } else if(message.indexOf('won') > -1){
                 socket.emit('finished');
-            } else {
+            } else if(message.indexOf('AI:') > -1){
                 socket.emit('message', message);
             }
         })
     });
 
     socket.on('disconnect', function(){
-        chess.end(function(err){
-        })
+        if(chess){
+            chess.end(function(err){
+            })
+        }
     })
 
     socket.on('move', function(data){
