@@ -175,6 +175,9 @@ io.on('connection', function(socket){
                         chess.send(data.aiV);
                         argNum++;
                     case 6:
+                        chess.send(data.first);
+                        argNum++;
+                    case 7:
                         socket.emit('setup', {done: 1, x: data.x, y: data.y});
                         playersTurn = 1;
                         argNum++;
