@@ -102,7 +102,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
     $scope.aiTime = "1";
     $scope.aiV = "v1";
     $scope.numberError = 0;
-    $scope.first = 'p1';
+    $scope.first = '0';
     $scope.messages = '';
     angular.element(document).ready(function(){
         var canvas = angular.element(document.querySelector('#canvas'));
@@ -135,7 +135,7 @@ mainApp.controller('aiCtrl', function($scope, socket){
             var options = $scope.playOptions;
             var aiTime = $scope.aiTime;
             var aiV = $scope.aiV;
-            var first = $scope.first
+            var first = $scope.first;
             socket.emit('setup', {x: boardx, y:boardy, winLength: winLength, options:options, aiTime:aiTime, aiV:aiV, first:first});
         }
     }

@@ -179,7 +179,9 @@ io.on('connection', function(socket){
                         argNum++;
                     case 7:
                         socket.emit('setup', {done: 1, x: data.x, y: data.y});
-                        playersTurn = 1;
+                        if(!data.first){
+                            playersTurn = 1;
+                        }
                         argNum++;
                 }
             } else if(message.indexOf('Adding checker') > -1){
