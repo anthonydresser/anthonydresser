@@ -121,7 +121,6 @@ mainApp.controller('aiCtrl', function($scope, socket){
         var objects = parths[1].split(",");
         var x = parseInt(objects[1]);
         var y = parseInt(objects[2]);
-        console.log(parths, objects, color, x, y);
         $scope.addPiece(color, x, y);
     });
     $scope.play = function(){
@@ -151,7 +150,6 @@ mainApp.controller('aiCtrl', function($scope, socket){
         $scope.finished();
     })
     socket.on('message', function(data){
-        $scope.messages += data + '\n';
     })
 });
 

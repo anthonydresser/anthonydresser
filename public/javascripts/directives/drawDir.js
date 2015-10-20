@@ -6,9 +6,7 @@ angular.module('mainApp').directive("drawing", function(){
             var circleSize = 10.25;
 
             scope.drawBoard = function(x, y){
-                console.log('drawing board',x,y);
                 ctx.clearRect(0, 0, element[0].width, element[0].height);
-                console.log(element[0].width, element[0].width/x, Math.floor(element[0].width/x));
                 circleSize = Math.min(element[0].width/x, element[0].height/y)/2;
                 for(var j = 0; j < y; j++){
                     for(var i = 0; i < x; i++){
