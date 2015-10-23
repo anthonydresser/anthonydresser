@@ -176,10 +176,11 @@ io.on('connection', function(socket){
                         argNum++;
                     case 6:
                         chess.send(data.first);
+                        console.log('first', data.first)
                         argNum++;
                     case 7:
                         socket.emit('setup', {done: 1, x: data.x, y: data.y});
-                        if(!data.first){
+                        if(data.first == '0'){
                             playersTurn = 1;
                         }
                         argNum++;
