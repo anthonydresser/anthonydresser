@@ -47,7 +47,7 @@ mainApp.controller('reciptInputCtrl', function($scope, $http, $rootScope, api){
     $scope.submit = function(){
         var r = confirm("Are you sure you want to submit this recipt?");
         if(r){
-            api.post.recipt($scope.entries).success(function(data, status){
+            api.post.recipt($scope.entries, $scope.payer).success(function(data, status){
                 console.log(data);
                 $state.transitionTo('library');
             })

@@ -65,6 +65,7 @@ router.post('/recipt', isAuth, function(req, res, next){
     var date = new Date();
 
     recipt.user = req.user['_id'];
+    recipt.payer = req.body.payer;
     recipt.date = date;
     recipt.items = [];
 
@@ -132,7 +133,7 @@ router.get('/recipt', function(req, res, next){
     if(req.query['type']){
         switch(req.query['type']){
             case 'mine':
-                Recipt.find({user: req.user['_id']}).lean().populate('items').exec(function(err, docs){
+                Recipt.find({user: req.user['_id']}).lean().populate('items').populate('payer', 'email').exec(function(err, docs){
                     UserOwnership.populate(docs, {
                         path: 'items.users'
                     }, function(){
@@ -150,7 +151,7 @@ router.get('/recipt', function(req, res, next){
                     docs.forEach(function(docs){
                         ReciptItem.find({users: docs['_id']}).lean().exec(function(err, docs){
                             docs.forEach(function(docs){
-                                Recipt.find({items: docs['_id']}).lean().populate('items').exec(function(err, docs){
+                                Recipt.find({items: docs['_id']}).lean().populate('items').populate('payer').exec(function(err, docs){
                                     docs.forEach(function(doc, index){
                                         if(doc.user == req.user['_id']){
                                             docs.splice(index, 1);

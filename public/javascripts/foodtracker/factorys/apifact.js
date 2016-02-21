@@ -30,8 +30,9 @@ angular.module('foodtracker')
         return $http.get(urlBase + 'users')
     }
 
-    api.post.recipt = function(entries){
+    api.post.recipt = function(entries, payer){
         return $http.post(urlBase + 'recipt', {
+            payer: payer,
             entries: entries
         })
     }
