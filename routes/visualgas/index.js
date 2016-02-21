@@ -1,15 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next){
-  var user;
-  if(req.user)  {user = req.user}
-  res.render('visualgas/templates/main',
-             {
-               title:'Visual Gas'
-             }
-  );
-});
 
 router.get('/home', function(req, res, next){
   res.render('visualgas/home');
@@ -33,6 +24,16 @@ router.get('/login', function(req, res, next){
 
 router.get('/templates/addentrymodal', function(req, res, next){
   res.render('visualgas/templates/addentrymodal');
+});
+
+router.get('/*', function(req, res, next){
+  var user;
+  if(req.user)  {user = req.user}
+  res.render('visualgas/templates/main',
+      {
+        title:'Visual Gas'
+      }
+  );
 });
 
 function isAuth(req, res, next) {

@@ -1,0 +1,5 @@
+<div class="container" style="margin-top: 50px; height:500px">
+    <div infinite-scroll="paging()" infinite-scroll-disabled="loading" infinite-scroll-distance="1">
+        <a ng-repeat="card in cards" href=""><img ng-click="add(card.name)" ng-src="{{card.img}}" width="15%"></a>
+    </div>
+</div>

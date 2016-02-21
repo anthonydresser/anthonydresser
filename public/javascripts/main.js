@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', ['ngAnimate', 'ui.router', 'ui.bootstrap']);
+var mainApp = angular.module('mainApp', ['ngAnimate', 'ui.router', 'ui.bootstrap', 'infinite-scroll']);
 
 mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $uiViewScrollProvider){
 
@@ -119,5 +119,10 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
         url: '/ai',
         templateUrl: '/partials/ai',
         controller: 'aiCtrl'
+      })
+      .state('hearthstone', {
+        url: '/hearthstone',
+        templateUrl: '/partials/hearthstone',
+        controller: 'hearthstoneCtrl'
       })
 });

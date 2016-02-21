@@ -10,7 +10,7 @@ router.get('/resume', function(req, res, next){
 })
 
 router.get('/partials/:filename', function(req, res, next){
-  res.render('./partials/' + req.params.filename, {msg:"hello", session: req.session});
+  res.render('./partials/' + req.params.filename);
 });
 
 module.exports = router;

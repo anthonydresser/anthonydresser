@@ -1,0 +1,32 @@
+<div class="container" style="margin-top: 50px; height:500px">
+    <table style="width:100%">
+        <tr>
+            <td><label>Name</label></td>
+            <td><label>Price</label></td>
+            <td><label>Quantity</label></td>
+            <td><label>Users</label></td>
+            <td><label>Selected Users</label></td>
+        </tr>
+        <tr ng-repeat="entry in entries">
+            <td><input type="text" ng-model="entry.name"/></td>
+            <td><input type="number" ng-model="entry.price"/></td>
+            <td><input type="number" ng-model="entry.quantity"/></td>
+            <td><select ng-model="entry.selectedUser" ng-options="user as user.email for user in users" ng-change="userSelect(entry.id)"></select></td>
+            <td>
+                <table style="width:100%">
+                    <tr ng-repeat="user in entry.users">
+                        <td>{{user.email}}</td>
+                        <td><input ng-model="user.ownership" type="number"/></td>
+                        <td><i class="fa fa-times" href="#" ng-click="removeUser(user.email, entry.id)"></i></td>
+                    </tr>
+                </table>
+            <td>
+        </tr>
+    </table>
+    <div>
+        <i class="fa fa-plus" ng-click="addEntry()" href="#"></i>
+    </div>
+    <div>
+        <button ng-click="submit()">Submit</button>
+    </div>
+</div>

@@ -12,7 +12,11 @@ var mainRoutes = require('./routes/index');
 var mainApiRoutes = require('./routes/api');
 var visualgasRoutes = require('./routes/visualgas/index');
 var visualgasApiRoutes = require('./routes/visualgas/api');
+var foodtrackerApiRoutes = require('./routes/foodtracker/api');
+var foodtrackerRoutes = require('./routes/foodtracker/index');
 var gw2ApiRoutes = require('./routes/gw2/api');
+var hearthstoneApiRoutes = require('./routes/hearthstone/api');
+var hearthstoneRoutes = require('./routes/hearthstone/index');
 var mongoose = require('mongoose');
 var credentials = require('./config/credentials.js');
 var passport = require('passport');
@@ -56,13 +60,17 @@ app.use('/', function(req, res, next){
     next();
 });
 
+app.use('/hearthstone/api/', hearthstoneApiRoutes);
+app.use('/hearthstone/', hearthstoneRoutes);
+app.use('/foodtracker/api/', foodtrackerApiRoutes);
+app.use('/foodtracker/', foodtrackerRoutes);
+app.use('/visualgas/api/', visualgasApiRoutes);
+app.use('/gw2/api/', gw2ApiRoutes);
+app.use('/visualgas/', visualgasRoutes);
+app.use('/api/', mainApiRoutes);
 app.use('/', mainRoutes);
-app.use('/gw2/api', gw2ApiRoutes);
-app.use('/api', mainApiRoutes);
-app.use('/visualgas', visualgasRoutes);
-app.use('/visualgas/api', visualgasApiRoutes);
 
-app.use('/*', function(req, res, next){
+app.use('*', function(req, res, next){
   res.render('template', { title : 'Anthony Dresser' })
 })
 
