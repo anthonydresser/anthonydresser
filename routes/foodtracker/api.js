@@ -146,6 +146,31 @@ router.get('/recipt', function(req, res, next){
                 })
                 break;
             case 'included':
+                UserOwnership.find({user: req.user['_id']}).lean().exec(function(err, docs){
+                    docs.forEach(function(docs){
+                        ReciptItem.find({users: docs['_id']}).lean().exec(function(err, docs){
+                            docs.forEach(function(docs){
+                                Recipt.find({items: docs['_id']}).lean().populate('items').exec(function(err, docs){
+                                    docs.forEach(function(doc, index){
+                                        if(doc.user == req.user['_id']){
+                                            docs.splice(index, 1);
+                                        }
+                                    })
+                                    UserOwnership.populate(docs, {
+                                        path: 'items.users'
+                                    }, function(){
+                                        User.populate(docs, {
+                                            path: 'items.users.user',
+                                            select: 'email'
+                                        }, function(){
+                                            res.status(200).send(docs);
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
                 break;
         }
     }

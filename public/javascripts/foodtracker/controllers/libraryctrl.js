@@ -11,9 +11,9 @@ mainApp.controller('libraryCtrl', function($scope, $http, $rootScope, $q, $state
             $scope.yourRecipts = data;
         })
 
-        //api.get.recipts().success(function(data, status){
-        //    $scope.includedRecipts = data;
-        //})
+        api.get.recipts().success(function(data, status){
+            $scope.includedRecipts = data;
+        })
     }
 
     $scope.transition = function(recipt){
