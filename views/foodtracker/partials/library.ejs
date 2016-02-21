@@ -1,3 +1,14 @@
 <div class="container" style="margin-top: 50px; height:500px">
-
+    <div>
+        <label>Your Recipts</label>
+        <div ng-repeat="recipt in yourRecipts">
+            <a href="#" ng-click="transition(recipt)">{{$index}}</a>
+        </div>
+    </div>
+    <div>
+        <label>Recipts you are included on</label>
+        <div ng-repeat="recipt in includedRecipts">
+            <a href="#" ng-click="transition(recipt)">{{$index}}</a>
+        </div>
+    </div>
 </div>

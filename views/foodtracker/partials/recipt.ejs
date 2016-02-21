@@ -1,0 +1,23 @@
+<div class="container" style="margin-top: 50px; height:500px">
+    <table style="width:100%">
+        <tr>
+            <td><label>Name</label></td>
+            <td><label>Price</label></td>
+            <td><label>Quantity</label></td>
+            <td><label>Users</label></td>
+        </tr>
+        <tr ng-repeat="entry in recipt.items">
+            <td>{{entry.name}}</td>
+            <td>{{entry.price}}</td>
+            <td>{{entry.quantity}}</td>
+            <td>
+                <table style="width:100%">
+                    <tr ng-repeat="user in entry.users">
+                        <td>{{user.user.email}}</td>
+                        <td>{{user.owned}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

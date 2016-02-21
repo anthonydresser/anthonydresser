@@ -36,6 +36,14 @@ angular.module('foodtracker')
         })
     }
 
+      api.get.myrecipts = function(){
+          return $http.get(urlBase + 'recipt?type=mine')
+      }
+
+      api.get.recipts = function(){
+          return $http.get(urlBase + 'recipt?type=included')
+      }
+
     return api;
 
   }]);

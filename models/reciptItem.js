@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var reciptItemSchema = mongoose.Schema({
     name : String,
     price : Number,
-    qantity : Number,
+    quantity : Number,
     users : [{type : mongoose.Schema.ObjectId, ref: 'UserOwnership'}]
 });
 

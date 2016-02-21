@@ -60,9 +60,6 @@ router.post('/logout', isAuth, function(req, res, next){
 });
 
 router.post('/recipt', isAuth, function(req, res, next){
-    console.log("Hello");
-    console.log(req.body);
-    console.log(req.body.entries[0].users);
 
     var recipt = new Recipt();
     var date = new Date();
@@ -75,7 +72,6 @@ router.post('/recipt', isAuth, function(req, res, next){
 
     req.body.entries.forEach(function(item, index, array){
         var defered = new Q.defer();
-        console.log('entering item');
         var reciptItem = new ReciptItem();
 
         reciptItem.name = item.name;
@@ -86,17 +82,13 @@ router.post('/recipt', isAuth, function(req, res, next){
 
         item.users.forEach(function(user, index, array){
             var deferred = new Q.defer();
-            console.log('entrering reciupt');
             var userOwnership = new UserOwnership();
 
             userOwnership.user = user['_id'];
             userOwnership.owned = user.ownership;
 
-            console.log('saving uysers')
-
             userOwnership.save(function(err){
                 if(err) console.log(err);
-                console.log('saved');
                 reciptItem.users.push(userOwnership['_id']);
                 deferred.resolve();
             })
@@ -105,12 +97,10 @@ router.post('/recipt', isAuth, function(req, res, next){
         })
 
         Q.all(deferredArray).then(function(){
-            console.log('saving recipt item');
 
             reciptItem.save(function(err){
                 if(err) console.log(err);
                 recipt.items.push(reciptItem['_id']);
-                console.log('sabedl');
                 defered.resolve();
             })
         })
@@ -120,11 +110,9 @@ router.post('/recipt', isAuth, function(req, res, next){
     })
 
     Q.all(topDeffered).then(function(){
-        console.log('saving recipt');
         recipt.save(function(err){
             if(err) console.log(err);
             else{
-                console.log('finished');
                 res.status(200).end();
             }
         })
@@ -141,7 +129,26 @@ router.delete('/recipt', function(req, res, next){
 });
 
 router.get('/recipt', function(req, res, next){
-    console.log("Hello");
+    if(req.query['type']){
+        switch(req.query['type']){
+            case 'mine':
+                Recipt.find({user: req.user['_id']}).lean().populate('items').exec(function(err, docs){
+                    UserOwnership.populate(docs, {
+                        path: 'items.users'
+                    }, function(){
+                        User.populate(docs, {
+                            path: 'items.users.user',
+                            select: 'email'
+                        }, function(){
+                            res.status(200).send(docs);
+                        })
+                    })
+                })
+                break;
+            case 'included':
+                break;
+        }
+    }
 });
 
 router.get('/users', isAuth, function(req, res){

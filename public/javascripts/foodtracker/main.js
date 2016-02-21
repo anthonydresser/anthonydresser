@@ -29,4 +29,10 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider, $
           templateUrl : 'partials/library',
           controller : 'libraryCtrl'
       })
+      .state('recipt', {
+          url: '/recipt/{recipt:json}',
+          templateUrl :'partials/recipt',
+          controller : 'reciptCtrl',
+          params : {recipt: null}
+      })
 });
