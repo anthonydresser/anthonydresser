@@ -1,5 +1,5 @@
 <div class="container" style="margin-top: 50px; height:500px">
-    <table style="width:100%">
+    <table style="width:100%" border="1">
         <tr><label>Payer: </label>{{recipt.payer.email}}</tr>
         <tr>
             <td><label>Name</label></td>
@@ -12,7 +12,7 @@
             <td>{{entry.price}}</td>
             <td>{{entry.quantity}}</td>
             <td>
-                <table style="width:100%">
+                <table style="width:100%" border=".5">
                     <tr ng-repeat="user in entry.users">
                         <td>{{user.user.email}}</td>
                         <td>{{user.owned}}</td>

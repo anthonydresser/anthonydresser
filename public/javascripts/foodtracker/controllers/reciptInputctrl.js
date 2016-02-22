@@ -25,7 +25,10 @@ mainApp.controller('reciptInputCtrl', function($scope, $http, $rootScope, api){
                         alreadyFound = true;
                     }
                 })
-                if (!alreadyFound) entry.users.push(entry.selectedUser);
+                if (!alreadyFound) entry.users.push({
+                    '_id': entry.selectedUser['_id'],
+                    'email' : entry.selectedUser['email']
+                });
                 entry.selectedUser = {};
             }
         });

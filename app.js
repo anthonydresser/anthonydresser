@@ -55,7 +55,6 @@ app.use(flash());
 require('./config/passport.js')(passport);
 
 app.use('/', function(req, res, next){
-    console.log('added sessions');
     req.session.myCustomData = {msg:"add something you need to session, like userID", userID:Math.floor(Math.random()*100)};
     next();
 });

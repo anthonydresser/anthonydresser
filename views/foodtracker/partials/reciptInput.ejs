@@ -1,5 +1,5 @@
 <div class="container" style="margin-top: 50px; height:500px">
-    <table style="width:100%">
+    <table style="width:100%" border="1">
         <tr><label>Payer: </label><select ng-model="payer" ng-options="user as user.email for user in users"></select></tr>
         <tr>
             <td><label>Name</label></td>
@@ -14,7 +14,7 @@
             <td><input type="number" ng-model="entry.quantity"/></td>
             <td><select ng-model="entry.selectedUser" ng-options="user as user.email for user in users" ng-change="userSelect(entry.id)"></select></td>
             <td>
-                <table style="width:100%">
+                <table style="width:100%" border=".5">
                     <tr ng-repeat="user in entry.users">
                         <td>{{user.email}}</td>
                         <td><input ng-model="user.ownership" type="number"/></td>

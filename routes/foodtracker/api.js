@@ -121,18 +121,20 @@ router.post('/recipt', isAuth, function(req, res, next){
 
 });
 
-router.put('/recipt', function(req, res, next){
+router.put('/recipt', isAuth, function(req, res, next){
     console.log("Hello");
 });
 
-router.delete('/recipt', function(req, res, next){
+router.delete('/recipt', isAuth, function(req, res, next){
     console.log("Hello");
 });
 
-router.get('/recipt', function(req, res, next){
+router.get('/recipt', isAuth, function(req, res, next){
+    console.log('get recipt');
     if(req.query['type']){
         switch(req.query['type']){
             case 'mine':
+                console.log('get mine');
                 Recipt.find({user: req.user['_id']}).lean().populate('items').populate('payer', 'email').exec(function(err, docs){
                     UserOwnership.populate(docs, {
                         path: 'items.users'
@@ -147,16 +149,15 @@ router.get('/recipt', function(req, res, next){
                 })
                 break;
             case 'included':
+                var recipts = [];
+                var deferredArray = [];
+                console.log('get included');
                 UserOwnership.find({user: req.user['_id']}).lean().exec(function(err, docs){
                     docs.forEach(function(docs){
                         ReciptItem.find({users: docs['_id']}).lean().exec(function(err, docs){
                             docs.forEach(function(docs){
-                                Recipt.find({items: docs['_id']}).lean().populate('items').populate('payer').exec(function(err, docs){
-                                    docs.forEach(function(doc, index){
-                                        if(doc.user == req.user['_id']){
-                                            docs.splice(index, 1);
-                                        }
-                                    })
+                                Recipt.find({items: docs['_id'], user: { $ne: req.user['_id']}}).lean().populate('items').populate('payer').exec(function(err, docs){
+                                    var deferred = Q.defer();
                                     UserOwnership.populate(docs, {
                                         path: 'items.users'
                                     }, function(){
@@ -164,13 +165,18 @@ router.get('/recipt', function(req, res, next){
                                             path: 'items.users.user',
                                             select: 'email'
                                         }, function(){
-                                            res.status(200).send(docs);
+                                            recipts.push(docs);
+                                            deferred.resolve();
                                         })
                                     })
+                                    deferredArray.push(deferred.promise);
                                 })
                             })
                         })
                     })
+                })
+                Q.all(deferredArray).then(function(){
+                    res.status(200).send(recipts);
                 })
                 break;
         }
@@ -178,15 +184,12 @@ router.get('/recipt', function(req, res, next){
 });
 
 router.get('/users', isAuth, function(req, res){
-    console.log("Hello");
-    //if(req.query['type'] &&  req.query['type'] == 'all'){
-    User.find({}).lean().exec(function (err, docs){
-        docs.forEach(function(element, index, array){
-            delete element.password;
-        })
+    User.find({}).select('email').lean().exec(function (err, docs){
+        //docs.forEach(function(element, index, array){
+        //    delete element.password;
+        //})
         res.status(200).send(docs);
     });
-    //}
 });
 
 function isAuth(req, res, next) {
